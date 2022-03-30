@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
-public class VoxelGrid : MonoBehaviour
+public class Chunk : MonoBehaviour
 {
-
+    public Vector3Int coord;
 }

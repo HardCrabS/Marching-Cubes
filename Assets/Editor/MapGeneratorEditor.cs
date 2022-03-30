@@ -27,16 +27,25 @@ public class MapGeneratorEditor : Editor
             MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
             if(meshGen)
             {
-                meshGen.GenerateMesh();
+                meshGen.InitChunks();
             }
         }
     }
 
     Texture2D CreateNoiseTexture(MapGenerator mapGen)
     {
-        int width = mapGen.pointsPerAxis;
-        int height = mapGen.pointsPerAxis;
-        float[,] noiseMap = mapGen.GenerateMap();
+        float[,] noiseMap = mapGen.GetNoiseMap();
+        if (noiseMap == null)
+        {
+            MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
+            if (meshGen)
+            {
+                mapGen.GenerateMap(meshGen.pointsPerAxis, meshGen.pointsOffset, new Vector3Int(0,0,0));
+                noiseMap = mapGen.GetNoiseMap();
+            }
+        }
+        int width = noiseMap.GetLength(0);
+        int height = noiseMap.GetLength(1);
 
         Texture2D texture = new Texture2D(width, height);
         Color[] colorMap = new Color[width * height];

@@ -10,10 +10,10 @@ public class MeshGeneratorEditor : Editor
     {
         MeshGenerator meshGen = (MeshGenerator)target;
 
-        if(DrawDefaultInspector())
-            meshGen.GenerateMesh();
+        if (DrawDefaultInspector())
+            meshGen.InitChunks();
 
         if (GUILayout.Button("Generate"))
-            meshGen.GenerateMesh();
+            meshGen.InitChunks();
     }
 }

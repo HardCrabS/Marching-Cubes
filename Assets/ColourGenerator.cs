@@ -21,7 +21,7 @@ public class ColourGenerator : MonoBehaviour {
         Init ();
         UpdateTexture ();
 
-        MapGenerator m = FindObjectOfType<MapGenerator> ();
+        MeshGenerator m = FindObjectOfType<MeshGenerator> ();
 
         float boundsY = m.pointsPerAxis * m.pointsOffset;
 

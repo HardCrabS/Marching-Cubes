@@ -1,27 +1,37 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
 public class MeshGenerator : MonoBehaviour
 {
     public float isolevel = 0;
     public bool hardEdges = false;
+    public Vector3Int chunksCount;
+    public Material terrainMat;
 
-    List<Vector3> vertices;
-    List<int> triangles;
+    [Header("Grid of points")]
+    [Range(1, 100)]
+    public int pointsPerAxis = 30;
+    public float pointsOffset = 1;
 
-    MapGenerator mapGen;
-    Mesh mesh;
+    [Header("Gizmos")]
+    public bool showGizmos = true;
+    public Color colorGizmos;
+
+    private List<Vector3> vertices;
+    private List<int> triangles;
+
+    private MapGenerator mapGen;
+    private Point[,,] points;
+    private GameObject chunksHolder;
+    private const string chunksHolderName = "Chunks Holder";
 
     private void Awake()
     {
-        GenerateMesh();
+        //InitChunks();
     }
 
-    void InitMesh()
+    void InitMesh(Mesh mesh)
     {
         // mesh is already inialized, so only clear mesh buffers
         if (mapGen)
@@ -31,27 +41,102 @@ public class MeshGenerator : MonoBehaviour
             triangles.Clear();
             return;
         }
-        mapGen = GetComponent<MapGenerator>();
+        mapGen = FindObjectOfType<MapGenerator>();
 
-        GetComponent<MeshFilter>().mesh = mesh = new Mesh();
-        mesh.name = "VoxelGrid Mesh";
         vertices = new List<Vector3>();
         triangles = new List<int>();
     }
-
-    public void GenerateMesh()
+    void CreateChunksHolder()
     {
-        InitMesh();
-
-        mapGen.GenerateMap();
-
-        for (int x = 0; x < mapGen.pointsPerAxis - 1; x++)
+        if (chunksHolder == null)
         {
-            for (int y = 0; y < mapGen.pointsPerAxis - 1; y++)
+            GameObject findHolder = GameObject.Find(chunksHolderName);
+            if (findHolder != null)
             {
-                for (int z = 0; z < mapGen.pointsPerAxis - 1; z++)
+                chunksHolder = findHolder;
+            }
+            else
+            {
+                chunksHolder = new GameObject(chunksHolderName);
+            }
+        }
+    }
+    public void InitChunks()
+    {
+        CreateChunksHolder();
+        List<Chunk> oldChunks = new List<Chunk>(FindObjectsOfType<Chunk>());
+        List<Chunk> newChunks = new List<Chunk>();
+
+        // create chunks or edit existing ones
+        for (int x = 0; x < chunksCount.x; x++)
+        {
+            for (int z = 0; z < chunksCount.z; z++)
+            {
+                Vector3Int chunk = new Vector3Int(x, 0, z);
+
+                bool oldChunkFound = false;
+                for (int i = 0; i < oldChunks.Count; i++)
                 {
-                    March(new Vector3Int(x,y,z));
+                    if(oldChunks[i].coord == chunk)
+                    {
+                        newChunks.Add(oldChunks[i]);
+                        oldChunks.RemoveAt(i);
+                        oldChunkFound = true;
+                        break;
+                    }
+                }
+
+                if(!oldChunkFound)
+                {
+                    newChunks.Add(CreateChunk(chunk));
+                }
+            }
+        }
+
+        for (int i = 0; i < oldChunks.Count; i++)
+        {
+            DestroyImmediate(oldChunks[i].gameObject, false);
+        }
+
+        for (int i = 0; i < newChunks.Count; i++)
+        {
+            Mesh mesh = GenerateMesh(newChunks[i].coord);
+            Vector3 pos = (Vector3)newChunks[i].coord * (pointsPerAxis - 1) * pointsOffset;
+            newChunks[i].transform.position = pos;
+            newChunks[i].GetComponent<MeshFilter>().sharedMesh = mesh;
+        }
+    }
+
+    Chunk CreateChunk(Vector3Int chunk)
+    {
+        Vector3 pos = (Vector3)chunk * (pointsPerAxis - 1) * pointsOffset;
+        GameObject go = new GameObject("Terrain Mesh: " + chunk.ToString());
+        go.transform.parent = chunksHolder.transform;
+        go.transform.position = pos;
+
+        Chunk chunkCo = go.AddComponent<Chunk>();
+        chunkCo.coord = chunk;
+        go.AddComponent<MeshFilter>();
+        go.AddComponent<MeshRenderer>().material = terrainMat;
+
+        return chunkCo;
+    }
+
+    public Mesh GenerateMesh(Vector3Int chunk)
+    {
+        Mesh mesh = new Mesh();
+
+        InitMesh(mesh);
+
+        points = mapGen.GenerateMap(pointsPerAxis, pointsOffset, chunk);
+
+        for (int x = 0; x < pointsPerAxis - 1; x++)
+        {
+            for (int y = 0; y < pointsPerAxis - 1; y++)
+            {
+                for (int z = 0; z < pointsPerAxis - 1; z++)
+                {
+                    March(new Vector3Int(x, y, z));
                 }
             }
         }
@@ -59,19 +144,21 @@ public class MeshGenerator : MonoBehaviour
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals();
+
+        return mesh;
     }
 
     void March(Vector3Int id)
     {
         Point[] cornerCoords = {
-            mapGen.GetPoint(id.x, id.y, id.z),
-            mapGen.GetPoint(id.x+1, id.y, id.z),
-            mapGen.GetPoint(id.x+1, id.y, id.z+1),
-            mapGen.GetPoint(id.x, id.y, id.z+1),
-            mapGen.GetPoint(id.x, id.y+1, id.z),
-            mapGen.GetPoint(id.x+1, id.y+1, id.z),
-            mapGen.GetPoint(id.x+1, id.y+1, id.z+1),
-            mapGen.GetPoint(id.x, id.y+1, id.z+1),
+            points[id.x, id.y, id.z],
+            points[id.x+1, id.y, id.z],
+            points[id.x+1, id.y, id.z+1],
+            points[id.x, id.y, id.z+1],
+            points[id.x, id.y+1, id.z],
+            points[id.x+1, id.y+1, id.z],
+            points[id.x+1, id.y+1, id.z+1],
+            points[id.x, id.y+1, id.z+1],
         };
 
         int cubeConfiguration = 0;
@@ -107,7 +194,7 @@ public class MeshGenerator : MonoBehaviour
             Vector3 vertexA;
             Vector3 vertexB;
             Vector3 vertexC;
-            if(hardEdges)
+            if (hardEdges)
             {
                 vertexA = VertexMiddle(cornerCoords[a0], cornerCoords[a1]);
                 vertexB = VertexMiddle(cornerCoords[b0], cornerCoords[b1]);
@@ -153,5 +240,14 @@ public class MeshGenerator : MonoBehaviour
     Vector3 VertexMiddle(Point p1, Point p2)
     {
         return (p1.position + p2.position) * 0.5f;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (showGizmos)
+        {
+            Gizmos.color = colorGizmos;
+            Gizmos.DrawWireCube(Vector3.one * (pointsPerAxis - 1) * 0.5f * pointsOffset, Vector3.one * (pointsPerAxis - 1) * pointsOffset);
+        }
     }
 }

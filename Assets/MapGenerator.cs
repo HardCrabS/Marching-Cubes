@@ -17,7 +17,8 @@ public class Point
 
 public class MapGenerator : MonoBehaviour
 {
-    [Header("Noise Map")]
+    public Noise.NormalizeMode normalizeMode;
+
     public float noiseScale = 0.3f;
 
     public int octaves = 4;
@@ -33,33 +34,25 @@ public class MapGenerator : MonoBehaviour
     public float hardFloorWeight = -1;
     public bool autoUpdate = true;
 
-    [Header("Grid of points")]
-    [Range(1, 100)]
-    public int pointsPerAxis = 30;
-    public float pointsOffset = 1;
+    private float[,] noiseMap;
 
-    [Header("Gizmos")]
-    public bool showGizmos = true;
-    public Color colorGizmos;
-
-    private Point[,,] points;
-
-    public float[,] GenerateMap()
+    public Point[,,] GenerateMap(int pointsPerAxis, float pointsOffset, Vector3Int chunk)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, noiseScale, octaves, persistance, lacunarity, offset);
-        GenerateGrid(noiseMap);
+        float chunkSize = pointsPerAxis - 1;
+        Vector2 chunkOffset = new Vector2(chunk.x, chunk.z) * chunkSize;
+        noiseMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, noiseScale, octaves, 
+                                          persistance, lacunarity, offset + chunkOffset, normalizeMode);
+        return GenerateGrid(noiseMap, pointsPerAxis, pointsOffset);
+    }
 
+    public float[,] GetNoiseMap()
+    {
         return noiseMap;
     }
 
-    public Point GetPoint(int x, int y, int z)
+    Point[,,] GenerateGrid(float[,] noiseMap, int pointsPerAxis, float pointsOffset)
     {
-        return points[x, y, z];
-    }
-
-    void GenerateGrid(float[,] noiseMap)
-    {
-        points = new Point[pointsPerAxis, pointsPerAxis, pointsPerAxis];
+        Point[,,] points = new Point[pointsPerAxis, pointsPerAxis, pointsPerAxis];
 
         for (int x = 0; x < points.GetLength(0); x++)
         {
@@ -76,6 +69,8 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+
+        return points;
     }
     float GetIsolevel(Vector3 pos, float noise)
     {
@@ -93,15 +88,6 @@ public class MapGenerator : MonoBehaviour
         if(octaves < 1)
         {
             octaves = 1;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (showGizmos)
-        {
-            Gizmos.color = colorGizmos;
-            Gizmos.DrawWireCube(Vector3.one * (pointsPerAxis - 1) * 0.5f * pointsOffset, Vector3.one * (pointsPerAxis - 1) * pointsOffset);
         }
     }
 }
