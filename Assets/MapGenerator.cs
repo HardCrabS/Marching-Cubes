@@ -17,6 +17,7 @@ public class Point
 
 public class MapGenerator : MonoBehaviour
 {
+    [Header("Height Map")]
     public Noise.NormalizeMode normalizeMode;
 
     public float noiseScale = 0.3f;
@@ -32,22 +33,50 @@ public class MapGenerator : MonoBehaviour
     public float floorOffset = 1;
     public float hardFloor = 1;
     public float hardFloorWeight = -1;
+
+    [Header("Heat Map")]
+    public float heatNoiseScale = 10f;
+    public float heighInfluence = 0.8f;
+
+    [Space()]
     public bool autoUpdate = true;
 
-    private float[,] noiseMap;
+    private float[,] heightMap;
+    private float[,] heatMap;
 
     public Point[,,] GenerateMap(int pointsPerAxis, float pointsOffset, Vector3Int chunk)
     {
         float chunkSize = pointsPerAxis - 1;
         Vector2 chunkOffset = new Vector2(chunk.x, chunk.z) * chunkSize;
-        noiseMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, noiseScale, octaves, 
+        heightMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, noiseScale, octaves, 
                                           persistance, lacunarity, offset + chunkOffset, normalizeMode);
-        return GenerateGrid(noiseMap, pointsPerAxis, pointsOffset);
+        heatMap = GenerateHeatMap(pointsPerAxis, chunkOffset);
+        return GenerateGrid(heightMap, pointsPerAxis, pointsOffset);
     }
 
-    public float[,] GetNoiseMap()
+    float[,] GenerateHeatMap(int pointsPerAxis, Vector2 chunkOffset)
     {
-        return noiseMap;
+        float[,] heatNoiseMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, heatNoiseScale, 1,
+                                          0.5f, 2f, offset + chunkOffset, normalizeMode);
+
+        for (int x = 0; x < pointsPerAxis; x++)
+        {
+            for (int y = 0; y < pointsPerAxis; y++)
+            {
+                heatNoiseMap[x, y] -= heightMap[x, y] * heighInfluence;
+            }
+        }
+
+        return heatNoiseMap;
+    }
+
+    public float[,] GetHeightMap()
+    {
+        return heightMap;
+    }
+    public float[,] GetHeatMap()
+    {
+        return heatMap;
     }
 
     Point[,,] GenerateGrid(float[,] noiseMap, int pointsPerAxis, float pointsOffset)

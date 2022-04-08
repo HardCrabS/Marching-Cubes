@@ -13,11 +13,33 @@ public class MapGeneratorEditor : Editor
         if (DrawDefaultInspector())
             RegenerateMesh(mapGen);
 
-        Texture2D noiseTexture = CreateNoiseTexture(mapGen);
+
+        float[,] heightMap = mapGen.GetHeightMap();
+        float[,] heatMap = mapGen.GetHeatMap();
+        if (heightMap == null)
+        {
+            MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
+            if (meshGen)
+            {
+                mapGen.GenerateMap(meshGen.pointsPerAxis, meshGen.pointsOffset, new Vector3Int(0, 0, 0));
+                heightMap = mapGen.GetHeightMap();
+                heatMap = mapGen.GetHeatMap();
+            }
+        }
+
+
+        Texture2D heightTexture = CreateNoiseTexture(heightMap, Color.black, Color.white);
+        Texture2D heatTexture = CreateNoiseTexture(heatMap, Color.blue, Color.red);
+        DrawTexture(heightTexture);
+        DrawTexture(heatTexture);
+    }
+
+    void DrawTexture(Texture2D texture)
+    {
         GUILayout.Box("", GUILayout.Width(200), GUILayout.Height(200));
         Rect lastRect = GUILayoutUtility.GetLastRect();
         Vector2 pos = new Vector2(lastRect.x, lastRect.y);
-        EditorGUI.DrawPreviewTexture(new Rect(pos, new Vector2(200, 200)), noiseTexture);
+        EditorGUI.DrawPreviewTexture(new Rect(pos, new Vector2(200, 200)), texture);
     }
 
     void RegenerateMesh(MapGenerator mapGen)
@@ -32,18 +54,8 @@ public class MapGeneratorEditor : Editor
         }
     }
 
-    Texture2D CreateNoiseTexture(MapGenerator mapGen)
+    Texture2D CreateNoiseTexture(float[,] noiseMap, Color low, Color high)
     {
-        float[,] noiseMap = mapGen.GetNoiseMap();
-        if (noiseMap == null)
-        {
-            MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
-            if (meshGen)
-            {
-                mapGen.GenerateMap(meshGen.pointsPerAxis, meshGen.pointsOffset, new Vector3Int(0,0,0));
-                noiseMap = mapGen.GetNoiseMap();
-            }
-        }
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
 
@@ -53,7 +65,7 @@ public class MapGeneratorEditor : Editor
         {
             for (int x = 0; x < width; x++)
             {
-                colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
+                colorMap[y * width + x] = Color.Lerp(low, high, noiseMap[x, y]);
             }
         }
         texture.SetPixels(colorMap);

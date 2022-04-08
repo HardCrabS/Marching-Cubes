@@ -70,6 +70,10 @@ public class Chunk : MonoBehaviour
     {
         return points;
     }
+    public float GetPointIsolevel(Vector3Int point)
+    {
+        return points[point.x, point.y, point.z].isolevel;
+    }
 
     public void UpdatePointIsolevel(Vector3Int pointPos, float isolevelDt)
     {

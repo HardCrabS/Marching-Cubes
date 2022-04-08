@@ -9,7 +9,12 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags 
+		{ 
+			"RenderType"="Opaque" 
+			"LightMode" = "ForwardBase"
+			"PassFlags" = "OnlyDirectional"
+		}
         LOD 200
 
         CGPROGRAM
@@ -44,8 +49,7 @@
             o.Albedo = tex;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
-           
+            o.Smoothness = _Glossiness;  
         }
         ENDCG
     }

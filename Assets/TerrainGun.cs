@@ -10,13 +10,13 @@ public class TerrainGun : MonoBehaviour
     public float isolevelDiff = 10;
 
     Camera cam;
-    MeshGenerator meshGen;
+    EndlessTerrain endlessTerrain;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<Camera>();
-        meshGen = FindObjectOfType<MeshGenerator>();
+        endlessTerrain = FindObjectOfType<EndlessTerrain>();
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class TerrainGun : MonoBehaviour
 
     void ProcessChunk(Chunk chunk, Vector3 hitPos, float isolevelDiff)
     {
-        meshGen.EditChunkPoints(chunk, hitPos, isolevelDiff, terrainEditingRange);
+        endlessTerrain.EditChunkPoints(chunk, hitPos, isolevelDiff, terrainEditingRange);
     }
 
     private void OnGUI()

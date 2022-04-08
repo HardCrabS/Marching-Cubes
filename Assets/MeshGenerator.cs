@@ -18,7 +18,7 @@ public class MeshGenerator : MonoBehaviour
     public bool showGizmos = true;
     public Color colorGizmos;
 
-    public static float chunkSize;
+    public static float chunkSize = 0;
 
     private List<Vector3> vertices;
     private List<int> triangles;
@@ -26,7 +26,6 @@ public class MeshGenerator : MonoBehaviour
     private MapGenerator mapGen;
     private const string chunksHolderName = "Chunks Holder";
     private GameObject chunksHolder;
-    private Dictionary<Vector3Int, Chunk> chunkDict;
 
     public static MeshGenerator Instance;
 
@@ -83,7 +82,10 @@ public class MeshGenerator : MonoBehaviour
     }
     public void InitChunks()
     {
-        chunkDict = new Dictionary<Vector3Int, Chunk>();
+        //initialize for editor
+        if(chunkSize == 0)
+            chunkSize = (pointsPerAxis - 1) * pointsOffset;
+
         List<Chunk> oldChunks = new List<Chunk>(FindObjectsOfType<Chunk>());
         List<Chunk> newChunks = new List<Chunk>();
 
@@ -136,7 +138,6 @@ public class MeshGenerator : MonoBehaviour
         MeshData meshData = GenerateMesh(chunk);
         chunkCo.SetUp(chunk, chunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
-        //chunkDict[chunk] = chunkCo;
 
         return chunkCo;
     }
@@ -190,72 +191,6 @@ public class MeshGenerator : MonoBehaviour
         mesh.RecalculateNormals();
 
         chunk.SetMesh(mesh);
-    }
-
-    public void EditChunkPoints(Chunk chunk, Vector3 hitPos, float isolevelDiff, int terrainEditingRange)
-    {
-        Vector3 chunkPos = (Vector3)chunk.coord * chunkSize;
-        Vector3Int pointPos = Vector3Int.RoundToInt((hitPos - chunkPos) / pointsOffset);
-
-        Dictionary<Vector3Int, Chunk> affectedChunks = new Dictionary<Vector3Int, Chunk>();
-        affectedChunks[chunk.coord] = chunk;
-
-        for (int x = 0; x <= terrainEditingRange; x++)
-        {
-            for (int y = 0; y <= terrainEditingRange; y++)
-            {
-                for (int z = 0; z <= terrainEditingRange; z++)
-                {
-                    Chunk ch1 = EditChunkPointRelativeTo(chunk, pointPos + new Vector3Int(x, y, z), isolevelDiff);
-                    Chunk ch2 = EditChunkPointRelativeTo(chunk, pointPos + new Vector3Int(-x, -y, -z), isolevelDiff);
-                    if (ch1 != null && !affectedChunks.ContainsKey(ch1.coord))
-                        affectedChunks[ch1.coord] = ch1;
-                    if (ch2 != null && !affectedChunks.ContainsKey(ch2.coord))
-                        affectedChunks[ch2.coord] = ch2;
-                }
-            }
-        }
-
-        foreach (Chunk ch in affectedChunks.Values)
-        {
-            UpdateChunkMesh(ch);
-        }
-    }
-
-    //Identifying chunk based on provided point.
-    //If point is outside of curr Chunk, then find the correct one and shift point position accordingly
-    Chunk EditChunkPointRelativeTo(Chunk curr, Vector3Int point, float isolevelDiff)
-    {
-        Vector3Int chunkOffset = Vector3Int.zero;
-        if (point.x < 0)
-        {
-            chunkOffset += Vector3Int.left;
-            point.x += pointsPerAxis;
-        }
-        if (point.z < 0)
-        {
-            chunkOffset += new Vector3Int(0, 0, -1);
-            point.z += pointsPerAxis;
-        }
-        if (point.x >= pointsPerAxis)
-        {
-            chunkOffset += Vector3Int.right;
-            point.x -= pointsPerAxis;
-        }
-        if (point.z >= pointsPerAxis)
-        {
-            chunkOffset += new Vector3Int(0, 0, 1);
-            point.z -= pointsPerAxis;
-        }
-
-        Vector3Int chunkCoord = curr.coord + chunkOffset;
-        if (chunkDict.ContainsKey(chunkCoord))
-        {
-            Chunk foundChunk = chunkDict[chunkCoord];
-            foundChunk.UpdatePointIsolevel(point, isolevelDiff);
-            return foundChunk;
-        }
-        return null;
     }
 
     void March(Vector3Int id, Point[,,] points)
