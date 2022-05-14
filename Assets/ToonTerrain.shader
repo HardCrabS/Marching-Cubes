@@ -1,10 +1,4 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-Shader "Custom/Toon1"
+﻿Shader "Custom/ToonTerrain"
 {
 	Properties
 	{
@@ -49,7 +43,9 @@ Shader "Custom/Toon1"
 				float normalOffsetWeight;
 				sampler2D ramp;
 
-				sampler2D _MainTex;
+				sampler2D moistureTexture;
+				float4 moistureTexture_ST;
+
 				fixed4 _Color;
 				float4 _AmbientColor;
 				float _Glossiness;
@@ -61,7 +57,7 @@ Shader "Custom/Toon1"
 					o.vertex = UnityObjectToClipPos(v.vertex);
 					o.worldNormal = UnityObjectToWorldNormal(v.normal);
 					o.viewDir = WorldSpaceViewDir(v.vertex);
-					float3 worldPos = mul(unity_ObjectToWorld, float4(v.vertex.xyz, 1)).xyz;
+					float3 worldPos = mul(unity_ObjectToWorld, v.vertex.xyz);
 					o.wpos = worldPos;
 					return o;
 				}
@@ -80,15 +76,18 @@ Shader "Custom/Toon1"
 					float NdotH = dot(normal, halfVector);
 
 					float specularIntensity = pow(NdotH * lightIntensity, _Glossiness * _Glossiness);
-					float specularIntensitySmooth = smoothstep(0.005, 0.01, specularIntensity);
-					float4 specular = specularIntensitySmooth * _SpecularColor;
+					float specularIntensitySmooth = smoothstep(0.001, 0.2, specularIntensity);
+					float4 specular = specularIntensity * _SpecularColor;
 
 					float4 rimDot = 1 - dot(viewDir, normal);
 
 					float h = smoothstep(-boundsY / 2, boundsY / 2, i.wpos.y + i.worldNormal.y * normalOffsetWeight);
 					float4 tex = tex2D(ramp, float2(h, .5)).rgba;
 
-					return tex * (_AmbientColor + light + specularIntensity + rimDot);
+					//float4 moisture = tex2D(_MainTex, i.uv);
+
+					//return moisture;
+					return tex * (_AmbientColor + light + specular + rimDot);
 				}
 				ENDCG
 			}

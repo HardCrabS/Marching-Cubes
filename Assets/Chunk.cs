@@ -34,6 +34,7 @@ public class Chunk : MonoBehaviour
             meshRenderer = gameObject.AddComponent<MeshRenderer>();
         }
         meshRenderer.material = mat;
+        //meshRenderer.material = new Material(mat);
 
         meshCollider = GetComponent<MeshCollider>();
         if (meshCollider == null)

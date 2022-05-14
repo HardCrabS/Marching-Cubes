@@ -8,7 +8,7 @@ public static class Noise
 
     public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale,
                                             int octaves, float persistance, float lacunarity, 
-                                            Vector2 offset, NormalizeMode normalizeMode)
+                                            Vector2 offset, NormalizeMode normalizeMode, bool negativeRange=false)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
 
@@ -79,10 +79,16 @@ public static class Noise
                 if (normalizeMode == NormalizeMode.Local)
                 {
                     noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
+                    if (negativeRange)
+                        noiseMap[x, y] = noiseMap[x, y] * 2 - 1;
                 }
                 else
                 {
-                    float normalizedHeight = (noiseMap[x, y] + 1) / (2f * maxPossibleHeight / 2f);
+                    float normalizedHeight;
+                    if (negativeRange)
+                        normalizedHeight = noiseMap[x, y] / (maxPossibleHeight / 2f);
+                    else
+                        normalizedHeight = (noiseMap[x, y] + 1) / (2f * maxPossibleHeight / 2f);
                     noiseMap[x, y] = normalizedHeight;
                 }
             }

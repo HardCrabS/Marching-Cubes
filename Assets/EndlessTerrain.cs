@@ -13,6 +13,7 @@ public class EndlessTerrain : MonoBehaviour
 
     Dictionary<Vector3Int, Chunk> terrainChunkDict = new Dictionary<Vector3Int, Chunk>();
     List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
+    List<Chunk> terrainChunksToTurnOff = new List<Chunk>();
 
     void Start()
     {
@@ -27,10 +28,12 @@ public class EndlessTerrain : MonoBehaviour
 
     void UpdateVisibleChunks()
     {
-        for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
-        {
-            terrainChunksVisibleLastUpdate[i].SetVisible(false);
-        }
+        //for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
+        //{
+        //    terrainChunksVisibleLastUpdate[i].SetVisible(false);
+        //}
+        
+        terrainChunksToTurnOff = terrainChunksVisibleLastUpdate;
         terrainChunksVisibleLastUpdate.Clear();
 
         int currChunkCoordX = Mathf.FloorToInt(viewerPosition.x / MeshGenerator.chunkSize);
@@ -49,6 +52,10 @@ public class EndlessTerrain : MonoBehaviour
                     if (terrainChunkDict[viewedChunkCoord].IsVisible())
                     {
                         terrainChunksVisibleLastUpdate.Add(terrainChunkDict[viewedChunkCoord]);
+
+                        //we are looking at it right now, so don't turn it off
+                        if (terrainChunksToTurnOff.Contains(terrainChunkDict[viewedChunkCoord]))
+                            terrainChunksToTurnOff.Remove(terrainChunkDict[viewedChunkCoord]);
                     }
                 }
                 else
@@ -57,6 +64,11 @@ public class EndlessTerrain : MonoBehaviour
                     terrainChunkDict[viewedChunkCoord] = createdChunk;
                 }
             }
+        }
+
+        for (int i = 0; i < terrainChunksToTurnOff.Count; i++)
+        {
+            terrainChunksToTurnOff[i].SetVisible(false);
         }
     }
 

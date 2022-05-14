@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
+    public PlacementProps[] placementProps;
     public float isolevel = 0;
     public bool hardEdges = false;
     public Vector3Int chunksCount;
@@ -28,6 +29,8 @@ public class MeshGenerator : MonoBehaviour
     private GameObject chunksHolder;
 
     public static MeshGenerator Instance;
+
+    public float ChunkSize { get { return (pointsPerAxis - 1) * pointsOffset; } }
 
     public GameObject ChunksHolder
     {
@@ -139,7 +142,17 @@ public class MeshGenerator : MonoBehaviour
         chunkCo.SetUp(chunk, chunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
 
+        GeneratePropsOnChunk(chunkCo.transform);
+
         return chunkCo;
+    }
+
+    private void GeneratePropsOnChunk(Transform chunkTransform)
+    {
+        foreach (var props in placementProps)
+        {
+            PlacementGenerator.Generate(props, chunkTransform);
+        }
     }
 
     MeshData GenerateMesh(Vector3Int chunk)

@@ -9,14 +9,19 @@ public class TerrainGun : MonoBehaviour
     public float shootDistance = 10f;
     public float isolevelDiff = 10;
 
+    public GameObject shootParticles;
+
     Camera cam;
     EndlessTerrain endlessTerrain;
+    FirstPersonMovement personMovement;
 
     // Start is called before the first frame update
     void Start()
     {
+        shootParticles.SetActive(false);
         cam = GetComponent<Camera>();
         endlessTerrain = FindObjectOfType<EndlessTerrain>();
+        personMovement = GetComponentInParent<FirstPersonMovement>();
     }
 
     // Update is called once per frame
@@ -36,6 +41,11 @@ public class TerrainGun : MonoBehaviour
                     else
                         ProcessChunk(hit.transform.GetComponent<Chunk>(), hit.point, isolevelDiff);
             }
+            shootParticles.SetActive(true);
+        }
+        else
+        {
+            shootParticles.SetActive(false);
         }
         int scrollDiff = (int)Input.mouseScrollDelta.y;
         if (scrollDiff != 0)
@@ -47,6 +57,7 @@ public class TerrainGun : MonoBehaviour
 
     void ProcessChunk(Chunk chunk, Vector3 hitPos, float isolevelDiff)
     {
+        personMovement.NotifyTerrainChange(hitPos, terrainEditingRange);
         endlessTerrain.EditChunkPoints(chunk, hitPos, isolevelDiff, terrainEditingRange);
     }
 

@@ -2,6 +2,8 @@
 {
     Properties
     {
+		testTexture ("Texture", 2D) = "white" {}
+		testScale("Scale", Float) = 1
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
@@ -36,6 +38,11 @@
         float boundsY;
         float normalOffsetWeight;
 
+		sampler2D testTexture;
+		float testScale;
+
+		sampler2D moistureTexture;
+
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
@@ -50,6 +57,8 @@
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;  
+
+			o.Albedo = tex2D(moistureTexture, IN.worldPos.xz / testScale);
         }
         ENDCG
     }

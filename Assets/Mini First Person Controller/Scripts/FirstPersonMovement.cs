@@ -15,7 +15,9 @@ public class FirstPersonMovement : MonoBehaviour
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
-
+    bool terrainWasEdited = false;
+    Vector3 terrainEditPoint;
+    int editingRadius;
 
     void Awake()
     {
@@ -40,5 +42,27 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         m_rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, m_rigidbody.velocity.y, targetVelocity.y);
+    }
+
+    void LateUpdate()
+    {
+        if(terrainWasEdited)
+        {
+            float pointOffset = MeshGenerator.Instance.pointsOffset;
+            float dst = Vector3.Distance(transform.position, terrainEditPoint);
+            if (dst < editingRadius * pointOffset)
+            {
+                Vector3 dir = transform.up * (editingRadius * pointOffset - dst*0.5f);
+                transform.position = transform.position + dir;
+            }
+            terrainWasEdited = false;
+        }
+    }
+
+    public void NotifyTerrainChange(Vector3 point, int radius)
+    {
+        terrainWasEdited = true;
+        terrainEditPoint = point;
+        editingRadius = radius;
     }
 }

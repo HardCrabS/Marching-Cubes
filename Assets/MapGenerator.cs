@@ -36,13 +36,18 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Heat Map")]
     public float heatNoiseScale = 10f;
-    public float heighInfluence = 0.8f;
+    public float heatHeighInfluence = 0.8f;
+
+    [Header("Moisture Map")]
+    public float moistureNoiseScale = 10f;
+    public float moistureHeighInfluence = 0.8f;
 
     [Space()]
     public bool autoUpdate = true;
 
     private float[,] heightMap;
     private float[,] heatMap;
+    private float[,] moistureMap;
 
     public Point[,,] GenerateMap(int pointsPerAxis, float pointsOffset, Vector3Int chunk)
     {
@@ -51,7 +56,8 @@ public class MapGenerator : MonoBehaviour
         heightMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, noiseScale, octaves, 
                                           persistance, lacunarity, offset + chunkOffset, normalizeMode);
         heatMap = GenerateHeatMap(pointsPerAxis, chunkOffset);
-        return GenerateGrid(heightMap, pointsPerAxis, pointsOffset);
+        moistureMap = GenerateMoistureMap(pointsPerAxis, chunkOffset);
+        return GenerateGrid(heightMap, pointsPerAxis, pointsOffset, chunk);
     }
 
     float[,] GenerateHeatMap(int pointsPerAxis, Vector2 chunkOffset)
@@ -63,11 +69,27 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < pointsPerAxis; y++)
             {
-                heatNoiseMap[x, y] -= heightMap[x, y] * heighInfluence;
+                heatNoiseMap[x, y] -= heightMap[x, y] * heatHeighInfluence;
             }
         }
 
         return heatNoiseMap;
+    }
+
+    float[,] GenerateMoistureMap(int pointsPerAxis, Vector2 chunkOffset)
+    {
+        float[,] moistureNoiseMap = Noise.GenerateNoiseMap(pointsPerAxis, pointsPerAxis, seed, moistureNoiseScale, 1,
+                                          0.5f, 2f, offset + chunkOffset, normalizeMode);
+
+        for (int x = 0; x < pointsPerAxis; x++)
+        {
+            for (int y = 0; y < pointsPerAxis; y++)
+            {
+                moistureNoiseMap[x, y] -= heightMap[x, y] * moistureHeighInfluence;
+            }
+        }
+
+        return moistureNoiseMap;
     }
 
     public float[,] GetHeightMap()
@@ -78,8 +100,11 @@ public class MapGenerator : MonoBehaviour
     {
         return heatMap;
     }
-
-    Point[,,] GenerateGrid(float[,] noiseMap, int pointsPerAxis, float pointsOffset)
+    public float[,] GetMoistureMap()
+    {
+        return moistureMap;
+    }
+    Point[,,] GenerateGrid(float[,] noiseMap, int pointsPerAxis, float pointsOffset, Vector3Int chunk)
     {
         Point[,,] points = new Point[pointsPerAxis, pointsPerAxis, pointsPerAxis];
 
@@ -88,7 +113,7 @@ public class MapGenerator : MonoBehaviour
             float xOffset = x * pointsOffset;
             for (int y = 0; y < points.GetLength(1); y++)
             {
-                float yOffset = y * pointsOffset;
+                float yOffset = y * pointsOffset + chunk.y * MeshGenerator.chunkSize;
                 for (int z = 0; z < points.GetLength(2); z++)
                 {
                     float zOffset = z * pointsOffset;
