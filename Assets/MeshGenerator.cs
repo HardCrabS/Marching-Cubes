@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
+    public bool isPropsPlacementEnabled = false;
     public PlacementProps[] placementProps;
     public float isolevel = 0;
     public bool hardEdges = false;
@@ -149,6 +150,9 @@ public class MeshGenerator : MonoBehaviour
 
     private void GeneratePropsOnChunk(Transform chunkTransform)
     {
+        if (!isPropsPlacementEnabled)
+            return;
+
         foreach (var props in placementProps)
         {
             PlacementGenerator.Generate(props, chunkTransform);
@@ -161,7 +165,8 @@ public class MeshGenerator : MonoBehaviour
 
         InitMesh(mesh);
 
-        Point[,,] points = mapGen.GenerateMap(pointsPerAxis, pointsOffset, chunk);
+        int chunksLength = mapGen.useFalloff ? chunksCount.x : 0;
+        Point[,,] points = mapGen.GenerateMap(pointsPerAxis, pointsOffset, chunk, chunksLength);
 
         for (int x = 0; x < pointsPerAxis - 1; x++)
         {

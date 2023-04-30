@@ -15,8 +15,9 @@ public class MapGeneratorEditor : Editor
 
 
         float[,] heightMap = mapGen.GetHeightMap();
-        float[,] heatMap = mapGen.GetHeatMap();
-        float[,] moistureMap = mapGen.GetMoistureMap();
+        //float[,] heatMap = mapGen.GetHeatMap();
+        //float[,] moistureMap = mapGen.GetMoistureMap();
+        float[,] falloffMap = mapGen.GetFalloffMap();
         if (heightMap == null)
         {
             MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
@@ -24,18 +25,21 @@ public class MapGeneratorEditor : Editor
             {
                 mapGen.GenerateMap(meshGen.pointsPerAxis, meshGen.pointsOffset, new Vector3Int(0, 0, 0));
                 heightMap = mapGen.GetHeightMap();
-                heatMap = mapGen.GetHeatMap();
-                moistureMap = mapGen.GetMoistureMap();
+                //heatMap = mapGen.GetHeatMap();
+                //moistureMap = mapGen.GetMoistureMap();
+                falloffMap = mapGen.GetFalloffMap();
             }
         }
 
 
         Texture2D heightTexture = CreateNoiseTexture(heightMap, Color.black, Color.white);
-        Texture2D heatTexture = CreateNoiseTexture(heatMap, Color.blue, Color.red);
-        Texture2D moistureTexture = CreateNoiseTexture(moistureMap, Color.white, Color.blue);
+        //Texture2D heatTexture = CreateNoiseTexture(heatMap, Color.blue, Color.red);
+        //Texture2D moistureTexture = CreateNoiseTexture(moistureMap, Color.white, Color.blue);
+        Texture2D falloffMapTexture = CreateNoiseTexture(falloffMap, Color.black, Color.white);
         DrawTexture(heightTexture);
-        DrawTexture(heatTexture);
-        DrawTexture(moistureTexture);
+        DrawTexture(falloffMapTexture);
+        //DrawTexture(heatTexture);
+        //DrawTexture(moistureTexture);
     }
 
     void DrawTexture(Texture2D texture)
