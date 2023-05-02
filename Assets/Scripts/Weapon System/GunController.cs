@@ -19,6 +19,18 @@ public class GunController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            OnTriggerHold();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
+    }
+
     void EquipGun(GameObject interactableGO)
     {
         var pickup = interactableGO.GetComponent<PickupGun>();
@@ -43,5 +55,21 @@ public class GunController : MonoBehaviour
     void DropGun(WeaponData weaponToDrop)
     {
         Instantiate(weaponToDrop.weaponPickupPrefab, gunHolder.position, gunHolder.rotation);
+    }
+
+    void OnTriggerHold()
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.OnTriggerHold();
+        }
+    }
+
+    void Reload()
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.Reload();
+        }
     }
 }

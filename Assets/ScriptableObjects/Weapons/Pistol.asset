@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9db67499aaa0b264383406683d1a48d7, type: 3}
-  m_Name: Rifle
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 957329656200001188, guid: 4233ffbe1288dc6419efd268aca13d82, type: 3}
-  weaponPickupPrefab: {fileID: 8902742555384657816, guid: 326b033b4c5802d4f92efc91b470906e, type: 3}
+  weaponPrefab: {fileID: 957329656200001188, guid: ba0e11d598e63f743a12b13c771b14fc, type: 3}
+  weaponPickupPrefab: {fileID: 9098345289706689532, guid: 7db84f2bc58c6744ab3d6e3980b9b682, type: 3}
   projectile: {fileID: -2119629972990643256, guid: 05dfcb53f7dc09a4caea793776a4c376, type: 3}
   speed: 30
-  msBetweenShots: 150
-  ammoMax: 30
-  reloadTime: 1.5
+  msBetweenShots: 300
+  ammoMax: 10
+  reloadTime: 1
