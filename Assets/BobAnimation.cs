@@ -12,20 +12,25 @@ public class BobAnimation : MonoBehaviour
     float sinY = 0f;
     float sinX = 0f;
     Vector3 initPosition;
-    Vector3 lastPosition;
 
     FirstPersonMovement fpsMovement;
 
-    private void Start()
+    private void Awake()
+    {
+        GetComponentInParent<Gun>().onPickUp += Initialize;
+    }
+
+    private void Initialize()
     {
         fpsMovement = GetComponentInParent<FirstPersonMovement>();
         initPosition = transform.localPosition;
-        lastPosition = transform.position;
     }
-
 
     void Update()
     {
+        if (!fpsMovement)
+            return;
+
         float delta = Time.deltaTime * idleSpeed;
         Vector2 playerInputVelocity = fpsMovement.getDesiredVelocity();
         float velocity = playerInputVelocity.magnitude * walkSpeedMultiplier;
@@ -41,7 +46,5 @@ public class BobAnimation : MonoBehaviour
         transform.localPosition = initPosition;
         transform.localPosition += Vector3.up * Mathf.Sin(sinY) * magnitude;
         transform.localPosition += Vector3.right * Mathf.Sin(sinX) * magnitude;
-
-        lastPosition = transform.position;
     }
 }
