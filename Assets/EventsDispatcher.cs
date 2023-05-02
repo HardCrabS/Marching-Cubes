@@ -5,6 +5,8 @@ using UnityEngine;
 public class EventsDispatcher : MonoBehaviour
 {
     public System.Action<GameObject> onInteract;
+    public System.Action onTriggerHold;
+    public System.Action onShoot;
 
     public static EventsDispatcher Instance;
 
@@ -18,6 +20,11 @@ public class EventsDispatcher : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            onTriggerHold?.Invoke();
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));

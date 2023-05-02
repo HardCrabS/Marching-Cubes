@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Transform gunHolder;
-    public WeaponData[] weaponDatas;
+    public WeaponData[] weaponsData;
 
     Gun equippedGun;
     WeaponData equippedWeaponData;
@@ -13,18 +13,16 @@ public class GunController : MonoBehaviour
     private void Start()
     {
         EventsDispatcher.Instance.onInteract += EquipGun;
-        if (weaponDatas.Length > 0)
+        if (weaponsData.Length > 0)
         {
-            EquipGun(weaponDatas[0]);
+            EquipGun(weaponsData[0]);
         }
+
+        EventsDispatcher.Instance.onTriggerHold += OnTriggerHold;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            OnTriggerHold();
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reload();

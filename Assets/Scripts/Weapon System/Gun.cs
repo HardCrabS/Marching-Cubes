@@ -44,6 +44,8 @@ public class Gun : MonoBehaviour
             prj.SetSpeed(weaponData.speed);
             currAmmoInMag--;
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
+
+            EventsDispatcher.Instance.onShoot?.Invoke();
         }
     }
 

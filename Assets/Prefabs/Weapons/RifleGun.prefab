@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 9127818880610922543}
   - component: {fileID: 9127818880610922542}
   - component: {fileID: 957329656200001188}
+  - component: {fileID: -4134671110549212731}
   m_Layer: 0
   m_Name: RifleGun
   m_TagString: Untagged
@@ -108,6 +109,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 34ad474094c8c6847ac38fac11c43c89, type: 2}
   shotPoint: {fileID: 443978652757620574}
+--- !u!114 &-4134671110549212731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127818880610922540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a76e7af47b4f7d4798dca300d1de8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilPosition: {fileID: 9127818880610922543}
+  rotationPoint: {fileID: 9127818880610922543}
+  positionalRecoilSpeed: 8
+  rotationalRecoilSpeed: 8
+  positionalReturnSpeed: 18
+  rotationalReturnSpeed: 38
+  RecoilRotation: {x: 40, y: 15, z: 15}
+  RecoilKickBack: {x: 10, y: 10, z: 10}
+  RecoilRotationAim: {x: 10, y: 4, z: 6}
+  RecoilKickBackAim: {x: 0.015, y: 0, z: -0.2}
 --- !u!1001 &9127818881588269373
 PrefabInstance:
   m_ObjectHideFlags: 0
