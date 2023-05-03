@@ -14,4 +14,5 @@ public class WeaponData : ScriptableObject
     public float msBetweenShots = 100;
     public int ammoMax = 30;
     public float reloadTime = 3f;
+    public ParticleSystem impactFX;
 }

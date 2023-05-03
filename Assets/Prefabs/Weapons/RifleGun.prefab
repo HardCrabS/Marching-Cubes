@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3093547080995902033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.087, y: 0.115, z: 1.376}
+  m_LocalPosition: {x: -0.049, y: 0.115, z: 1.637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9127818880610922543}
@@ -126,11 +126,9 @@ MonoBehaviour:
   positionalRecoilSpeed: 8
   rotationalRecoilSpeed: 8
   positionalReturnSpeed: 18
-  rotationalReturnSpeed: 38
+  rotationalReturnSpeed: 25
   RecoilRotation: {x: 40, y: 15, z: 15}
   RecoilKickBack: {x: 10, y: 10, z: 10}
-  RecoilRotationAim: {x: 10, y: 4, z: 6}
-  RecoilKickBackAim: {x: 0.015, y: 0, z: -0.2}
 --- !u!1001 &9127818881588269373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,15 +138,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4824846826913792730, guid: 7444562fe5798e846a4045a93e123308, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.132
       objectReference: {fileID: 0}
     - target: {fileID: 4824846826913792730, guid: 7444562fe5798e846a4045a93e123308, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07
+      value: 0.071
       objectReference: {fileID: 0}
     - target: {fileID: 4824846826913792730, guid: 7444562fe5798e846a4045a93e123308, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.355
+      value: 0.429
       objectReference: {fileID: 0}
     - target: {fileID: 4824846826913792730, guid: 7444562fe5798e846a4045a93e123308, type: 3}
       propertyPath: m_LocalRotation.x

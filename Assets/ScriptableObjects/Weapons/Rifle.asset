@@ -19,3 +19,4 @@ MonoBehaviour:
   msBetweenShots: 150
   ammoMax: 30
   reloadTime: 1.5
+  impactFX: {fileID: 5518825951518478225, guid: c8c0a12221a0266468f148f50f0a284b, type: 3}

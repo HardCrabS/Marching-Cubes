@@ -38,10 +38,11 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
-        if (currAmmoInMag > 0 && Time.time >= nextShotTime)
+        if (!isReloading && currAmmoInMag > 0 && Time.time >= nextShotTime)
         {
             Projectile prj = Instantiate(weaponData.projectile, shotPoint.position, shotPoint.rotation);
             prj.SetSpeed(weaponData.speed);
+            prj.SetImpactFX(weaponData.impactFX);
             currAmmoInMag--;
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
 
