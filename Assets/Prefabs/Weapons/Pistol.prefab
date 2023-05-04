@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 9127818880610922542}
   - component: {fileID: 957329656200001188}
   - component: {fileID: -1284944415124090111}
+  - component: {fileID: 6236537815839872483}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -129,6 +130,20 @@ MonoBehaviour:
   rotationalReturnSpeed: 10
   RecoilRotation: {x: 20, y: 5, z: 7}
   RecoilKickBack: {x: 0.015, y: 0, z: -0.2}
+--- !u!114 &6236537815839872483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127818880610922540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e19cd6d3e665e4786b10bccf24b1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeRange: {x: 0.9, y: 1}
+  pitchRange: {x: 0.9, y: 1}
 --- !u!1001 &3151562880729361976
 PrefabInstance:
   m_ObjectHideFlags: 0

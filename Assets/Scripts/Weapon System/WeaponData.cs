@@ -15,4 +15,8 @@ public class WeaponData : ScriptableObject
     public int ammoMax = 30;
     public float reloadTime = 3f;
     public ParticleSystem impactFX;
+
+    [Header("SFX")]
+    public AudioClip shotSFX;
+    public AudioClip reloadSFX;
 }

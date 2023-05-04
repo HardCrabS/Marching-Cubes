@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 9127818880610922542}
   - component: {fileID: 957329656200001188}
   - component: {fileID: -4134671110549212731}
+  - component: {fileID: -7244193387633006970}
   m_Layer: 0
   m_Name: RifleGun
   m_TagString: Untagged
@@ -129,6 +130,22 @@ MonoBehaviour:
   rotationalReturnSpeed: 25
   RecoilRotation: {x: 40, y: 15, z: 15}
   RecoilKickBack: {x: 10, y: 10, z: 10}
+--- !u!114 &-7244193387633006970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127818880610922540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e19cd6d3e665e4786b10bccf24b1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minVolume: 1
+  maxVolume: 1
+  minPitch: 0.14
+  maxPitch: 1
 --- !u!1001 &9127818881588269373
 PrefabInstance:
   m_ObjectHideFlags: 0
