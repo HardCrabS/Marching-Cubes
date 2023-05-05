@@ -6,7 +6,8 @@ using UnityEngine;
 
 public enum StateType
 {
-    Unknown,
+    // order defines priority
+    Idle,
     Wander,
     Chase,
     Attack
@@ -25,6 +26,7 @@ public class FSM : MonoBehaviour
 
         stateTypeToComponent = new Dictionary<StateType, State>();
         stateTypeToComponent.Add(StateType.Wander, GetComponent<WanderState>());
+        stateTypeToComponent.Add(StateType.Chase, GetComponent<ChaseState>());
     }
 
     private void Start()
@@ -45,8 +47,20 @@ public class FSM : MonoBehaviour
     private void Update()
     {
         var curStateComponent = StateTypeToComponent(curStateType);
-        StateType newStateType = curStateComponent.OnUpdate();
+        curStateComponent.Execute();
 
+        // check transition by finding the state with highest priority
+        StateType newStateType = StateType.Idle;
+        foreach (var stateComponent in stateTypeToComponent.Values)
+        {
+            var stateType = stateComponent.DecideTransition();
+            if (stateType > newStateType)
+            {
+                newStateType = stateType;
+            }
+        }
+
+        // perform transition
         if (newStateType != curStateType)
         {
             curStateComponent.OnExitState();
