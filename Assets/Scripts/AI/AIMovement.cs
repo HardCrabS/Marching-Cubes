@@ -34,11 +34,15 @@ public class AIMovement : MonoBehaviour
         isMoving = true;
         while ((transform.position - destination).magnitude > Mathf.Epsilon)
         {
-            float moveDistance = speed * Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+
+            float moveDistance = speed * Time.fixedDeltaTime;
             Vector3 direction = (destination - transform.position).normalized;
             rb.MovePosition(transform.position + direction * moveDistance);
 
-            yield return null;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            Quaternion yRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+            rb.MoveRotation(yRotation);
         }
         isMoving = false;
     }
