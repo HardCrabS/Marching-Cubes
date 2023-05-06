@@ -16,6 +16,11 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damage)
     {
         curHealth -= damage;
+        var character = GetComponent<Character>();
+        if (character != null)
+        {
+            character.TakeDamage();
+        }
         if (curHealth <= 0)
         {
             Kill();

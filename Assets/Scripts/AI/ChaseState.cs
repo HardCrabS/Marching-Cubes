@@ -9,6 +9,9 @@ public class ChaseState : State
     public float lostRadius = 15f;
 
     bool isChasing = false;
+    bool hasBeenNotifiedToAttack = false;
+    bool hasBeenAttackedByPlayer = false;
+
     AIMovement movement;
     Transform playerTransform;
 
@@ -16,6 +19,13 @@ public class ChaseState : State
     {
         movement = GetComponent<AIMovement>();
         playerTransform = FindObjectOfType<Player>().transform;
+
+        EventsDispatcher.Instance.onNotifyEnemies += HandleEnemyNotification;
+    }
+
+    private void OnDestroy()
+    {
+        EventsDispatcher.Instance.onNotifyEnemies -= HandleEnemyNotification;
     }
 
     public override void OnEnterState()
@@ -36,9 +46,12 @@ public class ChaseState : State
     {
         float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
 
-        if (distanceToPlayer < chaseRadius)
-            return StateType.Chase;
-        if (distanceToPlayer < lostRadius && isChasing)
+        bool chasePlayer = hasBeenAttackedByPlayer ||
+                           (distanceToPlayer < chaseRadius) ||
+                           (distanceToPlayer < lostRadius && isChasing) ||
+                           (distanceToPlayer < lostRadius && hasBeenNotifiedToAttack);
+
+        if (chasePlayer)
             return StateType.Chase;
         return StateType.Idle;
     }
@@ -46,6 +59,19 @@ public class ChaseState : State
     public override void Execute()
     {
         movement.SetDestination(playerTransform.position);
+    }
+
+    void HandleEnemyNotification(EnemyNotification enemyNotification)
+    {
+        float distanceToNotifyier = (transform.position - enemyNotification.callerPosition).magnitude;
+        if (enemyNotification.reason == NotificationReason.NearbyAttack && distanceToNotifyier < lostRadius)
+        {
+            hasBeenNotifiedToAttack = true;
+        }
+        else if (enemyNotification.reason == NotificationReason.TookDamage && enemyNotification.caller == GetComponent<AttackState>())
+        {
+            hasBeenAttackedByPlayer = true;
+        }
     }
 
     private void OnDrawGizmos()

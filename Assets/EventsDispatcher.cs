@@ -8,6 +8,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action onTriggerHold;
     public System.Action onShoot;
     public System.Action onReload;
+    public System.Action<EnemyNotification> onNotifyEnemies;
 
     public static EventsDispatcher Instance;
 

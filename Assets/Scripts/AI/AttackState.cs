@@ -2,6 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class EnemyNotification
+{
+    public AttackState caller;
+    public Vector3 callerPosition;
+    public NotificationReason reason;
+
+    public EnemyNotification(AttackState caller, Vector3 callerPos, NotificationReason reason)
+    {
+        this.caller = caller;
+        this.callerPosition = callerPos;
+        this.reason = reason;
+    }
+}
+
+
+public enum NotificationReason
+{
+    NearbyAttack,  // nearby enemy started attacking player
+    TookDamage  // got hit by player
+}
+
+
 public class AttackState : State
 {
     public float attackRadius = 3f;
@@ -20,6 +43,8 @@ public class AttackState : State
     public override void OnEnterState()
     {
         Debug.Log("AttackState OnEnterState");
+        EnemyNotification enemyNotification = new EnemyNotification(this, transform.position, NotificationReason.NearbyAttack);
+        EventsDispatcher.Instance.onNotifyEnemies?.Invoke(enemyNotification);
     }
 
     public override void OnExitState()
@@ -29,9 +54,7 @@ public class AttackState : State
 
     public override StateType DecideTransition()
     {
-        float distanceToPlayer = (playerTransform.position - transform.position).magnitude;
-
-        if (distanceToPlayer < attackRadius)
+        if (GetDistanceToPlayer() < attackRadius)
             return StateType.Attack;
 
         return StateType.Idle;
@@ -41,6 +64,11 @@ public class AttackState : State
     {
         movement.LookAt(playerTransform.position);
         gunController.OnTriggerHold();
+    }
+
+    float GetDistanceToPlayer()
+    {
+        return (playerTransform.position - transform.position).magnitude;
     }
 
     private void OnDrawGizmos()

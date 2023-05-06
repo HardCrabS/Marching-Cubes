@@ -22,7 +22,7 @@ public class FSM : MonoBehaviour
     
     private void Awake()
     {
-        curStateType = StateType.Wander;
+        curStateType = StateType.Idle;
 
         stateTypeToComponent = new Dictionary<StateType, State>();
         stateTypeToComponent.Add(StateType.Wander, GetComponent<WanderState>());
@@ -33,13 +33,16 @@ public class FSM : MonoBehaviour
     private void Start()
     {
         var curStateComponent = StateTypeToComponent(curStateType);
-        curStateComponent.OnEnterState();
+        if (curStateComponent)
+            curStateComponent.OnEnterState();
     }
 
     public State StateTypeToComponent(StateType stateType)
     {
         if (stateTypeToComponent.ContainsKey(stateType))
             return stateTypeToComponent[stateType];
+        if (stateType == StateType.Idle)
+            return null;
 
         Debug.LogError($"StateType {stateType} not found!");
         return null;
@@ -48,7 +51,8 @@ public class FSM : MonoBehaviour
     private void Update()
     {
         var curStateComponent = StateTypeToComponent(curStateType);
-        curStateComponent.Execute();
+        if (curStateComponent)
+            curStateComponent.Execute();
 
         // check transition by finding the state with highest priority
         StateType newStateType = StateType.Idle;
@@ -64,9 +68,11 @@ public class FSM : MonoBehaviour
         // perform transition
         if (newStateType != curStateType)
         {
-            curStateComponent.OnExitState();
+            if (curStateComponent)
+                curStateComponent.OnExitState();
             var newStateComponent = StateTypeToComponent(newStateType);
-            newStateComponent.OnEnterState();
+            if (newStateComponent)
+                newStateComponent.OnEnterState();
             curStateType = newStateType;
         }
     }

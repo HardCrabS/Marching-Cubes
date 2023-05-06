@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public virtual void TakeDamage()
+    {
+
+    }
+
     public virtual void Kill()
     {
         Destroy(gameObject);
