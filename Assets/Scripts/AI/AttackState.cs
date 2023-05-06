@@ -14,7 +14,7 @@ public class AttackState : State
     {
         gunController = GetComponent<GunController>();
         movement = GetComponent<AIMovement>();
-        playerTransform = FindObjectOfType<PlayerController>().transform;
+        playerTransform = FindObjectOfType<Player>().transform;
     }
 
     public override void OnEnterState()

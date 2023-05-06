@@ -10,6 +10,7 @@ public class WeaponData : ScriptableObject
 
     [Header("Bullets")]
     public Projectile projectile;
+    public float damage = 10f;
     public float speed = 300f;
     public float msBetweenShots = 100;
     public int ammoMax = 30;

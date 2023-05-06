@@ -15,7 +15,7 @@ public class ChaseState : State
     private void Start()
     {
         movement = GetComponent<AIMovement>();
-        playerTransform = FindObjectOfType<PlayerController>().transform;
+        playerTransform = FindObjectOfType<Player>().transform;
     }
 
     public override void OnEnterState()

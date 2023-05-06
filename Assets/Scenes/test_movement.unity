@@ -231,6 +231,8 @@ GameObject:
   - component: {fileID: 156081813}
   - component: {fileID: 156081818}
   - component: {fileID: 156081812}
+  - component: {fileID: 156081822}
+  - component: {fileID: 156081823}
   - component: {fileID: 156081811}
   - component: {fileID: 156081816}
   - component: {fileID: 156081817}
@@ -420,6 +422,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRadius: 7
+--- !u!114 &156081822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156081810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f226b651a04783a42a8ffcf2841f25f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &156081823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156081810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0032235ae87ab0f48aa18b3292df2750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &328025831
 GameObject:
   m_ObjectHideFlags: 0

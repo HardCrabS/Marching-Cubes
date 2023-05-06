@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public LayerMask collisionMask;
 
     float speed = 10f;
+    float damage = 10f;
     ParticleSystem impactFX;
 
     // Start is called before the first frame update
@@ -27,6 +28,10 @@ public class Projectile : MonoBehaviour
     {
         this.speed = speed;
     }
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
     public void SetImpactFX(ParticleSystem impactFX)
     {
         this.impactFX = impactFX;
@@ -45,6 +50,12 @@ public class Projectile : MonoBehaviour
 
     void OnHitObject(Collider c)
     {
+        HealthSystem hs = c.GetComponent<HealthSystem>();
+        if (hs)
+        {
+            hs.TakeDamage(damage);
+        }
+
         if (impactFX)
         {
             var particles = Instantiate(impactFX, transform.position, Quaternion.identity);

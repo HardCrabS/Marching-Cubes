@@ -46,6 +46,7 @@ public class Gun : MonoBehaviour
         {
             Projectile prj = Instantiate(weaponData.projectile, shotPoint.position, shotPoint.rotation);
             prj.SetSpeed(weaponData.speed);
+            prj.SetDamage(weaponData.damage);
             prj.SetImpactFX(weaponData.impactFX);
             currAmmoInMag--;
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
