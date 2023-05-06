@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109ec3ab223644e42afd999b347cb6af, type: 3}
+  m_Name: EnemyBase (0)
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7787010287348600059, guid: d1a1efe74c5dedd489f11e477feabd9a, type: 3}
+  density: 1
+  minHeight: 6
+  maxHeight: 50
+  xRange: {x: 0, y: 50}
+  zRange: {x: 0, y: 50}
+  rotateTowardsNormal: 0.079
+  rotationRange: {x: 0, y: 360}
+  minScale: {x: 1, y: 1, z: 1}
+  maxScale: {x: 1, y: 1, z: 1}

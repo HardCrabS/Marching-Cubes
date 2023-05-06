@@ -40,6 +40,10 @@ public class MapGenerator : MonoBehaviour
     [Range(0, 10)] public float a = 3f;
     [Range(0, 10)] public float b = 2.2f;
 
+    [Header("Radial Map")]
+    public bool useRadialMap = false;
+    public float radialInfluence = 0.2f;
+
     //[Header("Heat Map")]
     //public float heatNoiseScale = 10f;
     //public float heatHeighInfluence = 0.8f;
@@ -52,9 +56,10 @@ public class MapGenerator : MonoBehaviour
     public bool autoUpdate = true;
 
     private float[,] heightMap;
-    private float[,] heatMap;
-    private float[,] moistureMap;
+    //private float[,] heatMap;
+    //private float[,] moistureMap;
     private float[,] falloffMap;
+    private float[,] radialMap;
 
     public Point[,,] GenerateMap(int pointsPerAxis, float pointsOffset, Vector3Int chunk, int chunksLength=1)
     {
@@ -65,8 +70,8 @@ public class MapGenerator : MonoBehaviour
         //heatMap = GenerateHeatMap(pointsPerAxis, chunkOffset);
         //moistureMap = GenerateMoistureMap(pointsPerAxis, chunkOffset);
         //assume the falloff is only used for islands made of equal amount of chunks (1x1, 2x2, etc.)
-        chunkOffset = new Vector2(chunk.x, chunk.x);
         falloffMap = FalloffGenerator.GenerateFalloffMap(pointsPerAxis, chunk, chunksLength, a, b);
+        radialMap = FalloffGenerator.GenerateRadialMap(pointsPerAxis, chunk, chunksLength);
         if (useFalloff)
         {
             for (int x = 0; x < pointsPerAxis; x++)
@@ -77,6 +82,16 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+        //if (useRadialMap)
+        //{
+        //    for (int x = 0; x < pointsPerAxis; x++)
+        //    {
+        //        for (int y = 0; y < pointsPerAxis; y++)
+        //        {
+        //            heightMap[x, y] = Mathf.Clamp(heightMap[x, y] + radialMap[x, y] * radialInfluence, 0, 1);
+        //        }
+        //    }
+        //}
         return GenerateGrid(heightMap, pointsPerAxis, pointsOffset, chunk);
     }
 
@@ -128,6 +143,10 @@ public class MapGenerator : MonoBehaviour
     {
         return falloffMap;
     }
+    public float[,] GetRadialMap()
+    {
+        return radialMap;
+    }
     Point[,,] GenerateGrid(float[,] noiseMap, int pointsPerAxis, float pointsOffset, Vector3Int chunk)
     {
         Point[,,] points = new Point[pointsPerAxis, pointsPerAxis, pointsPerAxis];
@@ -142,7 +161,7 @@ public class MapGenerator : MonoBehaviour
                 {
                     float zOffset = z * pointsOffset;
                     Vector3 pos = new Vector3(xOffset, yOffset, zOffset);
-                    float isolevel = GetIsolevel(pos, noiseMap[x, z]);
+                    float isolevel = GetIsolevel(pos, noiseMap[x, z], new Vector2Int(x, z));
                     points[x, y, z] = new Point(pos, isolevel);
                 }
             }
@@ -150,9 +169,13 @@ public class MapGenerator : MonoBehaviour
 
         return points;
     }
-    float GetIsolevel(Vector3 pos, float noise)
+    float GetIsolevel(Vector3 pos, float noise, Vector2Int point)
     {
         float finalValue = (pos.y + floorOffset) + heightCurve.Evaluate(noise) * noiseWeight;
+        if (useRadialMap)
+        {
+            finalValue += radialMap[point.x, point.y] * radialInfluence;
+        }
         if (pos.y < hardFloor)
             finalValue += hardFloorWeight;
         return finalValue;

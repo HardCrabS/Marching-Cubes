@@ -18,6 +18,7 @@ public class MapGeneratorEditor : Editor
         //float[,] heatMap = mapGen.GetHeatMap();
         //float[,] moistureMap = mapGen.GetMoistureMap();
         float[,] falloffMap = mapGen.GetFalloffMap();
+        float[,] radialMap = mapGen.GetRadialMap();
         if (heightMap == null)
         {
             MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
@@ -28,6 +29,7 @@ public class MapGeneratorEditor : Editor
                 //heatMap = mapGen.GetHeatMap();
                 //moistureMap = mapGen.GetMoistureMap();
                 falloffMap = mapGen.GetFalloffMap();
+                radialMap = mapGen.GetRadialMap();
             }
         }
 
@@ -36,8 +38,10 @@ public class MapGeneratorEditor : Editor
         //Texture2D heatTexture = CreateNoiseTexture(heatMap, Color.blue, Color.red);
         //Texture2D moistureTexture = CreateNoiseTexture(moistureMap, Color.white, Color.blue);
         Texture2D falloffMapTexture = CreateNoiseTexture(falloffMap, Color.black, Color.white);
+        Texture2D radialMapTexture = CreateNoiseTexture(radialMap, Color.black, Color.white);
         DrawTexture(heightTexture);
         DrawTexture(falloffMapTexture);
+        DrawTexture(radialMapTexture);
         //DrawTexture(heatTexture);
         //DrawTexture(moistureTexture);
     }
