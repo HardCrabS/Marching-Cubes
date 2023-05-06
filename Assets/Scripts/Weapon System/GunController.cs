@@ -12,24 +12,13 @@ public class GunController : MonoBehaviour
 
     private void Start()
     {
-        EventsDispatcher.Instance.onInteract += EquipGun;
         if (weaponsData.Length > 0)
         {
             EquipGun(weaponsData[0]);
         }
-
-        EventsDispatcher.Instance.onTriggerHold += OnTriggerHold;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-    }
-
-    void EquipGun(GameObject interactableGO)
+    public void EquipGun(GameObject interactableGO)
     {
         var pickup = interactableGO.GetComponent<PickupGun>();
         if (!pickup)
@@ -55,7 +44,7 @@ public class GunController : MonoBehaviour
         Instantiate(weaponToDrop.weaponPickupPrefab, gunHolder.position, gunHolder.rotation);
     }
 
-    void OnTriggerHold()
+    public void OnTriggerHold()
     {
         if (equippedGun != null)
         {
@@ -63,7 +52,7 @@ public class GunController : MonoBehaviour
         }
     }
 
-    void Reload()
+    public void Reload()
     {
         if (equippedGun != null)
         {

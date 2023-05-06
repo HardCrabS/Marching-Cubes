@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
     public Transform shotPoint;
 
     public System.Action onPickUp;
+    public System.Action onGunShoot;
 
     float nextShotTime = 0f;
     bool isReloading = false;
@@ -50,6 +51,7 @@ public class Gun : MonoBehaviour
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
 
             EventsDispatcher.Instance.onShoot?.Invoke();
+            onGunShoot?.Invoke();
 
             soundPitcher.PlaySound(weaponData.shotSFX);
         }

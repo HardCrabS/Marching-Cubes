@@ -15,7 +15,7 @@ public class ChaseState : State
     private void Start()
     {
         movement = GetComponent<AIMovement>();
-        playerTransform = FindObjectOfType<FirstPersonMovement>().transform;
+        playerTransform = FindObjectOfType<PlayerController>().transform;
     }
 
     public override void OnEnterState()
@@ -40,7 +40,7 @@ public class ChaseState : State
             return StateType.Chase;
         if (distanceToPlayer < lostRadius && isChasing)
             return StateType.Chase;
-        return StateType.Wander;
+        return StateType.Idle;
     }
 
     public override void Execute()

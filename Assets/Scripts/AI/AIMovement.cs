@@ -40,10 +40,16 @@ public class AIMovement : MonoBehaviour
             Vector3 direction = (destination - transform.position).normalized;
             rb.MovePosition(transform.position + direction * moveDistance);
 
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion yRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
-            rb.MoveRotation(yRotation);
+            LookAt(destination);
         }
         isMoving = false;
+    }
+
+    public void LookAt(Vector3 destination)
+    {
+        Vector3 direction = (destination - transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Quaternion yRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+        rb.MoveRotation(yRotation);
     }
 }

@@ -7,6 +7,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action<GameObject> onInteract;
     public System.Action onTriggerHold;
     public System.Action onShoot;
+    public System.Action onReload;
 
     public static EventsDispatcher Instance;
 
@@ -38,6 +39,11 @@ public class EventsDispatcher : MonoBehaviour
                     onInteract?.Invoke(hit.collider.gameObject);
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            onReload?.Invoke();
         }
     }
 }

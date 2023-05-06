@@ -27,6 +27,7 @@ public class FSM : MonoBehaviour
         stateTypeToComponent = new Dictionary<StateType, State>();
         stateTypeToComponent.Add(StateType.Wander, GetComponent<WanderState>());
         stateTypeToComponent.Add(StateType.Chase, GetComponent<ChaseState>());
+        stateTypeToComponent.Add(StateType.Attack, GetComponent<AttackState>());
     }
 
     private void Start()

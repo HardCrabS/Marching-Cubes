@@ -28,7 +28,7 @@ public class WeaponRecoil : MonoBehaviour
 
     private void Start()
     {
-		EventsDispatcher.Instance.onShoot += Fire;
+		GetComponent<Gun>().onGunShoot += Fire;
 	}
 
     private void FixedUpdate()
