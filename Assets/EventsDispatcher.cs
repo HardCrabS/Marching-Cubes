@@ -8,6 +8,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action onTriggerHold;
     public System.Action onShoot;
     public System.Action onReload;
+    public System.Action onToggleMap;
     public System.Action<EnemyNotification> onNotifyEnemies;
 
     public static EventsDispatcher Instance;
@@ -45,6 +46,10 @@ public class EventsDispatcher : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             onReload?.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            onToggleMap?.Invoke();
         }
     }
 }
