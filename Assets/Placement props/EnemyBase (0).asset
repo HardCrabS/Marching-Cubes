@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7787010287348600059, guid: d1a1efe74c5dedd489f11e477feabd9a, type: 3}
   density: 1
+  isComplexProp: 1
   minHeight: 6
   maxHeight: 50
   xRange: {x: 0, y: 50}

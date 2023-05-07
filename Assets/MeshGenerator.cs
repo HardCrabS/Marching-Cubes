@@ -127,7 +127,7 @@ public class MeshGenerator : MonoBehaviour
         for (int i = 0; i < newChunks.Count; i++)
         {
             MeshData meshData = GenerateMesh(newChunks[i].coord);
-            Vector3 pos = (Vector3)newChunks[i].coord * chunkSize;
+            Vector3 pos = (Vector3)newChunks[i].coord * ChunkSize;
             newChunks[i].transform.position = pos;
             newChunks[i].SetMesh(meshData.mesh, meshData.points);
         }
@@ -140,7 +140,7 @@ public class MeshGenerator : MonoBehaviour
 
         Chunk chunkCo = go.AddComponent<Chunk>();
         MeshData meshData = GenerateMesh(chunk);
-        chunkCo.SetUp(chunk, chunkSize, terrainMat);
+        chunkCo.SetUp(chunk, ChunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
 
         GeneratePropsOnChunk(chunkCo.transform);
@@ -155,7 +155,7 @@ public class MeshGenerator : MonoBehaviour
 
         foreach (var props in placementProps)
         {
-            PlacementGenerator.Generate(props, chunkTransform);
+            PlacementGenerator.Generate(props, chunkTransform, ChunkSize);
         }
     }
 
