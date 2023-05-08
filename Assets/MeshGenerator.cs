@@ -32,6 +32,8 @@ public class MeshGenerator : MonoBehaviour
     public static MeshGenerator Instance;
 
     public float ChunkSize { get { return (pointsPerAxis - 1) * pointsOffset; } }
+    public float MapSizeInWorldCoords { get { return ChunkSize * chunksCount.x * chunksHolder.transform.localScale.x; } }
+    public Vector3 MapCenter { get { return chunksHolder.transform.position + new Vector3(1, 0, 1) * MapSizeInWorldCoords / 2; } }
 
     public GameObject ChunksHolder
     {

@@ -23,11 +23,26 @@ public class IslandManager : MonoBehaviour
             List<Chunk> chunks = MeshGenerator.Instance.InitChunks();
             chunksHolder.localScale *= mapScaleFactor;
             StartCoroutine(DelayedSpawn(chunks));
+
+            MovePlayerOnEdge();
         }
+    }
+
+    void MovePlayerOnEdge()
+    {
+        var meshGen = MeshGenerator.Instance;
+        float mapSize = meshGen.MapSizeInWorldCoords;
+        float roughRadius = mapSize * 0.9f / 2;
+
+        Transform player = FindObjectOfType<Player>().transform;
+        float randAngle = Random.Range(0, 360f);
+        Vector3 randDirection = Quaternion.Euler(0, randAngle, 0) * Vector3.forward;
+        player.transform.position = meshGen.MapCenter + randDirection * roughRadius + Vector3.up * 20f;
     }
 
     IEnumerator DelayedSpawn(List<Chunk> chunks)
     {
+        // wait until terrain mesh collider is updated
         yield return new WaitForSeconds(1f);
 
         foreach (var chunk in chunks)
@@ -38,6 +53,8 @@ public class IslandManager : MonoBehaviour
         EnemyBase[] enemyBases = FindObjectsOfType<EnemyBase>();
         SpawnQuestEnemies(enemyBases);
         SpawnDefaultEnemies(enemyBases);
+
+        EventsDispatcher.Instance.onMapInitialized?.Invoke();
     }
 
     void SpawnQuestEnemies(EnemyBase[] enemyBases)
@@ -66,5 +83,15 @@ public class IslandManager : MonoBehaviour
             enemyBase.SpawnEnemy(QuestSystem.Instance.defaultEnemyPrefab);
             enemiesSpawned++;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        var meshGen = FindObjectOfType<MeshGenerator>();
+        float mapSize = meshGen.ChunkSize * meshGen.chunksCount.x * meshGen.ChunksHolder.transform.localScale.x;
+        Vector3 mapBottomLeft = meshGen.ChunksHolder.transform.position;
+        Vector3 center = mapBottomLeft + new Vector3(1, 0, 1) * mapSize / 2;
+        float roughRadius = mapSize * 0.9f / 2;
+        Gizmos.DrawWireSphere(center, roughRadius);
     }
 }

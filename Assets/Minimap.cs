@@ -9,33 +9,24 @@ public class Minimap : MonoBehaviour
     public Vector2Int textureSize = new Vector2Int(100, 100);
 
     Image minimapImage;
-    Vector2Int playerStartPosOnMinimap;
-    float mapWidthInWorldCoords;
 
     private void Start()
     {
         EventsDispatcher.Instance.onToggleMap += ToggleMinimap;
+        EventsDispatcher.Instance.onMapInitialized += () =>
+        {
+            if (!minimapCamera)
+                return;
+            Sprite sprite = GenerateMinimap();
+            minimapImage.sprite = sprite;
+        };
 
         minimapImage = GetComponentInChildren<Image>();
-        foreach (Transform child in transform)
-        {
-            child.gameObject.SetActive(!child.gameObject.activeSelf);
-        }
-
-        mapWidthInWorldCoords = minimapCamera.transform.position.x * 2;
-        Vector3 playerStartPos = FindObjectOfType<Player>().transform.position;
-        int startPosX = (int)(playerStartPos.x / mapWidthInWorldCoords * textureSize.x);
-        int startPosY = (int)(playerStartPos.y / mapWidthInWorldCoords * textureSize.y);
-        playerStartPosOnMinimap = new Vector2Int(startPosX, startPosY);
+        ToggleMinimap();
     }
 
     void ToggleMinimap()
     {
-        if (!minimapCamera)
-            return;
-        Sprite sprite = GenerateMinimap();
-        minimapImage.sprite = sprite;
-
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(!child.gameObject.activeSelf);
@@ -54,12 +45,22 @@ public class Minimap : MonoBehaviour
         RenderTexture.active = renderTexture;
         texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 
-        DrawSquare(texture, playerStartPosOnMinimap.x, playerStartPosOnMinimap.y, 5);
+        DrawPlayerStartPosition(texture);
 
         texture.Apply();
         RenderTexture.active = null;
 
         return Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
+    }
+
+    private void DrawPlayerStartPosition(Texture2D texture)
+    {
+        float mapSizeInWorldCoords = MeshGenerator.Instance.MapSizeInWorldCoords;
+        Vector3 playerStartPos = FindObjectOfType<Player>().transform.position;
+        int startPosX = (int)(playerStartPos.x / mapSizeInWorldCoords * textureSize.x);
+        int startPosY = (int)(playerStartPos.z / mapSizeInWorldCoords * textureSize.y);
+        Vector2Int playerStartPosOnMinimap = new Vector2Int(startPosX, startPosY);
+        DrawSquare(texture, playerStartPosOnMinimap.x, playerStartPosOnMinimap.y, 5);
     }
 
     void DrawSquare(Texture2D texture, int xStart, int yStart, int thickness)

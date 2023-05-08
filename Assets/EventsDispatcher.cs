@@ -9,6 +9,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action onShoot;
     public System.Action onReload;
     public System.Action onToggleMap;
+    public System.Action onMapInitialized;
     public System.Action<EnemyNotification> onNotifyEnemies;
     public System.Action<EnemyType> onEnemyKilled;
     public System.Action<Quest> onQuestProgress;
