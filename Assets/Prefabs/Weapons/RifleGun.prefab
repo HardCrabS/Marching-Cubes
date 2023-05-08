@@ -42,9 +42,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cfd2b57d4b7434cbcc8d675830247c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnitude: 0.04
+  magnitude: 0.06
   idleSpeed: 0.6
-  walkSpeedMultiplier: 0.003
+  walkSpeedMultiplier: 0.009
   walkSpeedMax: 1
 --- !u!1 &9127818880610922540
 GameObject:
@@ -142,10 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e19cd6d3e665e4786b10bccf24b1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVolume: 1
-  maxVolume: 1
-  minPitch: 0.14
-  maxPitch: 1
+  volumeRange: {x: 0.9, y: 1}
+  pitchRange: {x: 0.9, y: 1}
 --- !u!1001 &9127818881588269373
 PrefabInstance:
   m_ObjectHideFlags: 0

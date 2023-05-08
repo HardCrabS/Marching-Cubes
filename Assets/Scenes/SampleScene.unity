@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.42352942, g: 0.6039216, b: 0.5137255, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.025
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 147375810}
   - component: {fileID: 147375809}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Water Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1183,15 +1183,6 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.48756623
-      value: 0.69691515
-      inSlope: 0.3834266
-      outSlope: 0.3834266
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.1353613
-      outWeight: 0.22693595
-    - serializedVersion: 3
       time: 1
       value: 0.9827601
       inSlope: 0
@@ -1326,10 +1317,6 @@ PrefabInstance:
     - target: {fileID: 4207293392497186, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20437472682476688, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
-      propertyPath: m_Depth
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
