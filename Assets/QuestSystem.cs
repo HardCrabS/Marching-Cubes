@@ -46,6 +46,18 @@ public class QuestSystem : MonoBehaviour
         return quests;
     }
 
+    public bool IsAllQuestsCompleted()
+    {
+        if (quests == null)
+            return false;
+        foreach (var quest in quests)
+        {
+            if (!quest.completed)
+                return false;
+        }
+        return true;
+    }
+
     void GenerateQuests()
     {
         int randIndex = Random.Range(0, enemyPrefabs.Length);

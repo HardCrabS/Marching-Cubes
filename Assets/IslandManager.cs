@@ -8,6 +8,7 @@ public class IslandManager : MonoBehaviour
     public bool isRandomAtStart = true;
     public float mapScaleFactor = 0.6f;
     public int maxEnemiesOnMap = 10;
+    public GameObject levelFinishPrefab;
 
     int enemiesSpawned = 0;
 
@@ -23,8 +24,6 @@ public class IslandManager : MonoBehaviour
             List<Chunk> chunks = MeshGenerator.Instance.InitChunks();
             chunksHolder.localScale *= mapScaleFactor;
             StartCoroutine(DelayedSpawn(chunks));
-
-            MovePlayerOnEdge();
         }
     }
 
@@ -37,7 +36,14 @@ public class IslandManager : MonoBehaviour
         Transform player = FindObjectOfType<Player>().transform;
         float randAngle = Random.Range(0, 360f);
         Vector3 randDirection = Quaternion.Euler(0, randAngle, 0) * Vector3.forward;
-        player.transform.position = meshGen.MapCenter + randDirection * roughRadius + Vector3.up * 20f;
+        Vector3 desiredPos = meshGen.MapCenter + randDirection * roughRadius;
+        Physics.Raycast(desiredPos + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity);
+        player.position = hit.point;
+
+        // spawn finish level prop behind player
+        desiredPos = meshGen.MapCenter + randDirection * roughRadius * 1.1f;
+        Physics.Raycast(desiredPos + Vector3.up * 100, Vector3.down, out hit, Mathf.Infinity);
+        Instantiate(levelFinishPrefab, hit.point, levelFinishPrefab.transform.rotation);
     }
 
     IEnumerator DelayedSpawn(List<Chunk> chunks)
@@ -53,6 +59,8 @@ public class IslandManager : MonoBehaviour
         EnemyBase[] enemyBases = FindObjectsOfType<EnemyBase>();
         SpawnQuestEnemies(enemyBases);
         SpawnDefaultEnemies(enemyBases);
+
+        MovePlayerOnEdge();
 
         EventsDispatcher.Instance.onMapInitialized?.Invoke();
     }

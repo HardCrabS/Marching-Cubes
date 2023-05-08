@@ -37,7 +37,7 @@ public class EventsDispatcher : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, GameConstants.INTERACT_DISTANCE))
             {
-                var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+                var interactable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
                 if (interactable != null)
                 {
                     interactable.Interact();
