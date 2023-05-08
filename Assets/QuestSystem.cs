@@ -20,7 +20,7 @@ public class Quest
 
 public class QuestSystem : MonoBehaviour
 {
-    public int maxAmount = 5;
+    public Vector2Int amountRange;
     public Enemy defaultEnemyPrefab;
     public Enemy[] enemyPrefabs;
 
@@ -61,7 +61,7 @@ public class QuestSystem : MonoBehaviour
     void GenerateQuests()
     {
         int randIndex = Random.Range(0, enemyPrefabs.Length);
-        int randAmount = Random.Range(1, maxAmount);
+        int randAmount = Random.Range(amountRange.x, amountRange.y);
 
         Quest quest = new Quest(enemyPrefabs[randIndex], randAmount);
 
