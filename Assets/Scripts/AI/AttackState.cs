@@ -42,14 +42,13 @@ public class AttackState : State
 
     public override void OnEnterState()
     {
-        Debug.Log("AttackState OnEnterState");
         EnemyNotification enemyNotification = new EnemyNotification(this, transform.position, NotificationReason.NearbyAttack);
         EventsDispatcher.Instance.onNotifyEnemies?.Invoke(enemyNotification);
     }
 
     public override void OnExitState()
     {
-        Debug.Log("AttackState OnExitState");
+
     }
 
     public override StateType DecideTransition()

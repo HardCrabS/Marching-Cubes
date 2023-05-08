@@ -84,7 +84,7 @@ public class MeshGenerator : MonoBehaviour
         vertices = new List<Vector3>();
         triangles = new List<int>();
     }
-    public void InitChunks()
+    public List<Chunk> InitChunks()
     {
         //initialize for editor
         if(chunkSize == 0)
@@ -131,6 +131,8 @@ public class MeshGenerator : MonoBehaviour
             newChunks[i].transform.position = pos;
             newChunks[i].SetMesh(meshData.mesh, meshData.points);
         }
+
+        return newChunks;
     }
 
     public Chunk CreateChunk(Vector3Int chunk)
@@ -143,12 +145,10 @@ public class MeshGenerator : MonoBehaviour
         chunkCo.SetUp(chunk, ChunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
 
-        GeneratePropsOnChunk(chunkCo.transform);
-
         return chunkCo;
     }
 
-    private void GeneratePropsOnChunk(Transform chunkTransform)
+    public void GeneratePropsOnChunk(Transform chunkTransform)
     {
         if (!isPropsPlacementEnabled)
             return;

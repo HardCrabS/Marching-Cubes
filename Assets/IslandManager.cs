@@ -7,6 +7,9 @@ public class IslandManager : MonoBehaviour
     public Transform chunksHolder;
     public bool isRandomAtStart = true;
     public float mapScaleFactor = 0.6f;
+    public int maxEnemiesOnMap = 10;
+
+    int enemiesSpawned = 0;
 
     void Start()
     {
@@ -15,11 +18,53 @@ public class IslandManager : MonoBehaviour
             MapGenerator mapGen = FindObjectOfType<MapGenerator>();
             mapGen.seed = Random.Range(0, int.MaxValue);
         }
-        MeshGenerator meshGen = FindObjectOfType<MeshGenerator>();
-        if (meshGen)
+        if (MeshGenerator.Instance)
         {
-            meshGen.InitChunks();
+            List<Chunk> chunks = MeshGenerator.Instance.InitChunks();
+            chunksHolder.localScale *= mapScaleFactor;
+            StartCoroutine(DelayedSpawn(chunks));
         }
-        chunksHolder.localScale *= mapScaleFactor;
+    }
+
+    IEnumerator DelayedSpawn(List<Chunk> chunks)
+    {
+        yield return new WaitForSeconds(1f);
+
+        foreach (var chunk in chunks)
+        {
+            MeshGenerator.Instance.GeneratePropsOnChunk(chunk.transform);
+        }
+
+        EnemyBase[] enemyBases = FindObjectsOfType<EnemyBase>();
+        SpawnQuestEnemies(enemyBases);
+        SpawnDefaultEnemies(enemyBases);
+    }
+
+    void SpawnQuestEnemies(EnemyBase[] enemyBases)
+    {
+        Quest[] quests = QuestSystem.Instance.GetQuests();
+
+        foreach (Quest quest in quests)
+        {
+            for (int i = 0; i < quest.amount; i++)
+            {
+                int randIndex = Random.Range(0, enemyBases.Length);
+                EnemyBase enemyBase = enemyBases[randIndex];
+                enemyBase.SpawnEnemy(quest.enemyPrefab);
+                enemiesSpawned++;
+            }
+        }
+    }
+
+    void SpawnDefaultEnemies(EnemyBase[] enemyBases)
+    {
+        int leftToSpawn = maxEnemiesOnMap - enemiesSpawned;
+        for (int i = 0; i < leftToSpawn; i++)
+        {
+            int randIndex = Random.Range(0, enemyBases.Length);
+            EnemyBase enemyBase = enemyBases[randIndex];
+            enemyBase.SpawnEnemy(QuestSystem.Instance.defaultEnemyPrefab);
+            enemiesSpawned++;
+        }
     }
 }

@@ -30,14 +30,12 @@ public class ChaseState : State
 
     public override void OnEnterState()
     {
-        Debug.Log("ChaseState OnEnterState");
         movement.SetDestination(playerTransform.position);
         isChasing = true;
     }
 
     public override void OnExitState()
     {
-        Debug.Log("ChaseState OnExitState");
         movement.StopMoving();
         isChasing = false;
     }

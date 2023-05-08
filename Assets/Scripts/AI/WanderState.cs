@@ -16,13 +16,11 @@ public class WanderState : State
 
     public override void OnEnterState()
     {
-        Debug.Log("WanderState OnEnterState");
         StartCoroutine(WanderAroundCo());
     }
 
     public override void OnExitState()
     {
-        Debug.Log("WanderState OnExitState");
         movement.StopMoving();
         StopAllCoroutines();
     }

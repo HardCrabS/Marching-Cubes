@@ -17,7 +17,10 @@ public class Minimap : MonoBehaviour
         EventsDispatcher.Instance.onToggleMap += ToggleMinimap;
 
         minimapImage = GetComponentInChildren<Image>();
-        minimapImage.gameObject.SetActive(false);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
+        }
 
         mapWidthInWorldCoords = minimapCamera.transform.position.x * 2;
         Vector3 playerStartPos = FindObjectOfType<Player>().transform.position;
@@ -32,7 +35,11 @@ public class Minimap : MonoBehaviour
             return;
         Sprite sprite = GenerateMinimap();
         minimapImage.sprite = sprite;
-        minimapImage.gameObject.SetActive(!minimapImage.gameObject.activeSelf);
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(!child.gameObject.activeSelf);
+        } 
     }
 
     Sprite GenerateMinimap()
