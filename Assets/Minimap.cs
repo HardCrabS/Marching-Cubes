@@ -28,6 +28,8 @@ public class Minimap : MonoBehaviour
 
     void ToggleMinimap()
     {
+        if (!minimapCamera)
+            return;
         Sprite sprite = GenerateMinimap();
         minimapImage.sprite = sprite;
         minimapImage.gameObject.SetActive(!minimapImage.gameObject.activeSelf);

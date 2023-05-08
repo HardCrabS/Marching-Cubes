@@ -12,7 +12,6 @@ public class PlacementProps : ScriptableObject
     [Header("Complex prop")]
     [Tooltip("Spawn every child of the prop individually")]
     public bool isComplexProp = false;
-    [Range(0f, 1f)] public float scalePercent = 0.2f;
 
     [Space]
 

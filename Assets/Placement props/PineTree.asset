@@ -15,12 +15,11 @@ MonoBehaviour:
   prefab: {fileID: 2314952926817031353, guid: 42855e6be94256042be40098e1e47cf3, type: 3}
   density: 50
   isComplexProp: 0
-  scalePercent: 0.2
   minHeight: 6
   maxHeight: 50
   xRange: {x: 0, y: 50}
   zRange: {x: 0, y: 50}
   rotateTowardsNormal: 0.106
   rotationRange: {x: 0, y: 360}
-  minScale: {x: 1.5, y: 1.5, z: 1.5}
-  maxScale: {x: 2.5, y: 2.5, z: 2.5}
+  minScale: {x: 2, y: 2, z: 2}
+  maxScale: {x: 3, y: 3, z: 3}

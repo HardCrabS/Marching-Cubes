@@ -35,8 +35,10 @@
 				{
 					float4 vertex : SV_POSITION;
 					float3 worldNormal : NORMAL;
-					float3 viewDir : TEXCOORD1;
-					float3 wpos : TEXCOORD2;
+					float3 viewDir : TEXCOORD2;
+					float3 wpos : TEXCOORD3;
+					//Creates a variable that contains fog coordinates. The parameter must be a free TEXCOORD, for example 1 if TEXCOORD1 is free.
+					UNITY_FOG_COORDS(1)
 				};
 
 				float boundsY;
@@ -59,6 +61,8 @@
 					o.viewDir = WorldSpaceViewDir(v.vertex);
 					float3 worldPos = mul(unity_ObjectToWorld, v.vertex.xyz);
 					o.wpos = worldPos;
+					//Compute fog amount from clip space position.
+					UNITY_TRANSFER_FOG(o, o.vertex);
 					return o;
 				}
 
@@ -84,10 +88,23 @@
 					float h = smoothstep(-boundsY / 2, boundsY / 2, i.wpos.y + i.worldNormal.y * normalOffsetWeight);
 					float4 tex = tex2D(ramp, float2(h, .5)).rgba;
 
+					float4 color = tex * (_AmbientColor + light + specular + rimDot);
+
+					//Apply fog (additive pass are automatically handled)
+					UNITY_APPLY_FOG(i.fogCoord, color);
+
+					//to handle custom fog color another option would have been 
+					//#ifdef UNITY_PASS_FORWARDADD
+					//  UNITY_APPLY_FOG_COLOR(i.fogCoord, color, float4(0,0,0,0));
+					//#else
+					//  fixed4 myCustomColor = fixed4(0,0,1,0);
+					//  UNITY_APPLY_FOG_COLOR(i.fogCoord, color, myCustomColor);
+					//#endif
+
 					//float4 moisture = tex2D(_MainTex, i.uv);
 
 					//return moisture;
-					return tex * (_AmbientColor + light + specular + rimDot);
+					return color;
 				}
 				ENDCG
 			}

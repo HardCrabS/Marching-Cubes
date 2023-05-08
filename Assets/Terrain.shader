@@ -58,7 +58,7 @@
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;  
 
-			o.Albedo = tex2D(moistureTexture, IN.worldPos.xz / testScale);
+			//o.Albedo = tex2D(moistureTexture, IN.worldPos.xz / testScale);
         }
         ENDCG
     }

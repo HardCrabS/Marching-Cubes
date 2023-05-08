@@ -28,5 +28,5 @@ Material:
     m_Colors:
     - _AmbientColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 0.6039216}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularColor: {r: 0.5471698, g: 0.5109317, b: 0.18273403, a: 0.6901961}
+    - _SpecularColor: {r: 0.6886792, g: 0.626271, b: 0.10828286, a: 0.6901961}
   m_BuildTextureStacks: []

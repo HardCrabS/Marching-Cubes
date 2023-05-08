@@ -23,42 +23,52 @@ public class PlacementGenerator : MonoBehaviour
                 // raycast for each child to find a proper position
                 foreach (Transform child in placementProps.prefab.transform)
                 {
-                    rayStart += child.localPosition;
-                    if (!Physics.Raycast(rayStart, Vector3.down, out hit, Mathf.Infinity))
+                    ComplexProp complexProp = child.GetComponent<ComplexProp>();
+                    if (!complexProp)
+                        complexProp = child.gameObject.AddComponent<ComplexProp>();
+                    Vector3 childRayStart = rayStart + child.localPosition;
+                    if (!Physics.Raycast(childRayStart, Vector3.down, out hit, Mathf.Infinity))
                         continue;
-                    SpawnProp(child.gameObject, placementProps, terrainTransform, hit);
+                    SpawnComplexProp(complexProp, child.gameObject, terrainTransform, hit);
                 }
             }
             else
             {
-                SpawnProp(placementProps.prefab, placementProps, terrainTransform, hit);
+                SpawnProp(placementProps, terrainTransform, hit);
             }
         }
     }
 
-    private static void SpawnProp(GameObject prefab, PlacementProps placementProps, Transform terrainTransform, RaycastHit hit)
+    private static void SpawnProp(PlacementProps placementProps, Transform terrainTransform, RaycastHit hit)
     {
-        GameObject instantiatedPrefab = Instantiate(prefab, terrainTransform);
+        GameObject instantiatedPrefab = Instantiate(placementProps.prefab, terrainTransform);
         instantiatedPrefab.transform.position = hit.point;
         instantiatedPrefab.transform.Rotate(Vector3.up, Random.Range(placementProps.rotationRange.x, placementProps.rotationRange.y), Space.Self);
         instantiatedPrefab.transform.rotation = Quaternion.Lerp(terrainTransform.rotation, terrainTransform.rotation *
             Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), placementProps.rotateTowardsNormal);
 
-        if (placementProps.isComplexProp)
-        {
-            Vector3 scale = instantiatedPrefab.transform.localScale;
-            scale.x *= 1f + Random.Range(-placementProps.scalePercent, placementProps.scalePercent);
-            scale.y *= 1f + Random.Range(-placementProps.scalePercent, placementProps.scalePercent);
-            scale.z *= 1f + Random.Range(-placementProps.scalePercent, placementProps.scalePercent);
-            instantiatedPrefab.transform.localScale = scale;
-        }
+        instantiatedPrefab.transform.localScale = new Vector3(
+            Random.Range(placementProps.minScale.x, placementProps.maxScale.x),
+            Random.Range(placementProps.minScale.y, placementProps.maxScale.y),
+            Random.Range(placementProps.minScale.z, placementProps.maxScale.z)
+        );
+    }
+
+    private static void SpawnComplexProp(ComplexProp complexProp, GameObject prefab, Transform terrainTransform, RaycastHit hit)
+    {
+        GameObject instantiatedPrefab = Instantiate(prefab, terrainTransform);
+        instantiatedPrefab.transform.position = hit.point;
+        if (complexProp.rotationRange.y > 0)
+            instantiatedPrefab.transform.Rotate(instantiatedPrefab.transform.up, Random.Range(complexProp.rotationRange.x, complexProp.rotationRange.y), Space.Self);
         else
-        {
-            instantiatedPrefab.transform.localScale = new Vector3(
-                Random.Range(placementProps.minScale.x, placementProps.maxScale.x),
-                Random.Range(placementProps.minScale.y, placementProps.maxScale.y),
-                Random.Range(placementProps.minScale.z, placementProps.maxScale.z)
-            );
-        }
+            instantiatedPrefab.transform.rotation = prefab.transform.rotation;
+        instantiatedPrefab.transform.rotation *= Quaternion.Lerp(terrainTransform.rotation, terrainTransform.rotation *
+            Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), complexProp.rotateTowardsNormal);
+
+        Vector3 scale = instantiatedPrefab.transform.localScale;
+        scale.x *= 1f + Random.Range(-complexProp.scalePercent, complexProp.scalePercent);
+        scale.y *= 1f + Random.Range(-complexProp.scalePercent, complexProp.scalePercent);
+        scale.z *= 1f + Random.Range(-complexProp.scalePercent, complexProp.scalePercent);
+        instantiatedPrefab.transform.localScale = scale;
     }
 }

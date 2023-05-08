@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8877034368566063192, guid: 058c3011d68e14f42b0d21517977665c, type: 3}
   density: 10
+  isComplexProp: 0
   minHeight: 6
   maxHeight: 50
   xRange: {x: 0, y: 50}
   zRange: {x: 0, y: 50}
   rotateTowardsNormal: 0.179
   rotationRange: {x: 0, y: 360}
-  minScale: {x: 0.9, y: 0.9, z: 0.9}
-  maxScale: {x: 2, y: 2, z: 2}
+  minScale: {x: 2, y: 2, z: 2}
+  maxScale: {x: 3, y: 3, z: 3}
