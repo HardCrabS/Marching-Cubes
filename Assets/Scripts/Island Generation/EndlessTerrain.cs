@@ -10,8 +10,9 @@ public class EndlessTerrain : MonoBehaviour
     public static Vector3 viewerPosition;
 
     int chunksVisibleInViewDst;
+    float chunksHolderScale;
 
-    Dictionary<Vector3Int, Chunk> terrainChunkDict = new Dictionary<Vector3Int, Chunk>();
+    Dictionary<Vector3Int, Chunk> terrainChunkDict;
     List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
     List<Chunk> terrainChunksToTurnOff = new List<Chunk>();
 
@@ -22,8 +23,8 @@ public class EndlessTerrain : MonoBehaviour
 
     void Update()
     {
-        viewerPosition = new Vector3(viewerTransform.position.x, 0, viewerTransform.position.z);
-        UpdateVisibleChunks();
+        //viewerPosition = new Vector3(viewerTransform.position.x, 0, viewerTransform.position.z);
+        //UpdateVisibleChunks();
     }
 
     void UpdateVisibleChunks()
@@ -72,10 +73,20 @@ public class EndlessTerrain : MonoBehaviour
         }
     }
 
+    public void SetupChunks(List<Chunk> chunks, float chunksHolderScale)
+    {
+        this.chunksHolderScale = chunksHolderScale;
+        terrainChunkDict = new Dictionary<Vector3Int, Chunk>();
+        foreach (var chunk in chunks)
+        {
+            terrainChunkDict[chunk.coord] = chunk;
+        }
+    }
+
     public void EditChunkPoints(Chunk chunk, Vector3 hitPos, float isolevelDiff, int terrainEditingRange)
     {
-        Vector3 chunkPos = (Vector3)chunk.coord * MeshGenerator.chunkSize;
-        Vector3Int pointPos = Vector3Int.RoundToInt((hitPos - chunkPos) / MeshGenerator.Instance.pointsOffset);
+        Vector3 chunkPos = (Vector3)chunk.coord * MeshGenerator.chunkSize * chunksHolderScale;
+        Vector3Int pointPos = Vector3Int.RoundToInt((hitPos - chunkPos) / (MeshGenerator.Instance.pointsOffset * chunksHolderScale));
 
         Dictionary<Vector3Int, Chunk> affectedChunks = new Dictionary<Vector3Int, Chunk>();
         affectedChunks[chunk.coord] = chunk;

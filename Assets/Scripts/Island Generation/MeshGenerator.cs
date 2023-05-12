@@ -312,7 +312,7 @@ public class MeshGenerator : MonoBehaviour
         if (showGizmos)
         {
             Gizmos.color = colorGizmos;
-            Gizmos.DrawWireCube(Vector3.one * chunkSize * 0.5f, Vector3.one * chunkSize);
+            Gizmos.DrawWireCube(Vector3.one * ChunkSize * 0.5f, Vector3.one * ChunkSize);
         }
     }
 }

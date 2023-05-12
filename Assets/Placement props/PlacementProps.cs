@@ -17,8 +17,6 @@ public class PlacementProps : ScriptableObject
 
     public float minHeight;
     public float maxHeight;
-    public Vector2 xRange;
-    public Vector2 zRange;
 
     [Header("Prefab variations")]
     [Range(0, 1)] public float rotateTowardsNormal;

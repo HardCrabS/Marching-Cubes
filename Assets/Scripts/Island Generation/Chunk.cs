@@ -80,6 +80,6 @@ public class Chunk : MonoBehaviour
     {
         if (pointPos.x >= 0 && pointPos.y >= 0 && pointPos.z >= 0 &&
             pointPos.x < points.GetLength(0) && pointPos.y < points.GetLength(1) && pointPos.z < points.GetLength(2))
-        points[pointPos.x, pointPos.y, pointPos.z].isolevel += isolevelDt;
+            points[pointPos.x, pointPos.y, pointPos.z].isolevel += isolevelDt;
     }
 }
