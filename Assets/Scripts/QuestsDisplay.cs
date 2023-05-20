@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class QuestsDisplay : MonoBehaviour
 {
-    public Text questText;
+    public TextMeshProUGUI questText;
 
     void Start()
     {

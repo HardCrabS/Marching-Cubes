@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnitude: 0.06
   idleSpeed: 0.6
-  walkSpeedMultiplier: 0.009
+  walkSpeedMultiplier: 0.025
   walkSpeedMax: 1
 --- !u!1 &9127818880610922540
 GameObject:

@@ -15,12 +15,12 @@ GameObject:
   - component: {fileID: 6328133547591598644}
   - component: {fileID: 6328133547591598667}
   - component: {fileID: 6328133547591598666}
-  - component: {fileID: 6328133547591598665}
   - component: {fileID: 6328133547591598664}
-  - component: {fileID: 6328133547591598671}
   - component: {fileID: 6328133547591598670}
+  - component: {fileID: 6328133547591598665}
+  - component: {fileID: 6328133547591598671}
   m_Layer: 0
-  m_Name: EnemyAI 1
+  m_Name: EnemyAI Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f226b651a04783a42a8ffcf2841f25f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
 --- !u!114 &6328133547591598644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,19 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleRange: 5
   timeToWanderRange: {x: 1, y: 10}
---- !u!114 &6328133547591598665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6328133547591598669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f198455f0ffeda34dabb793d4c106b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
 --- !u!114 &6328133547591598664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +137,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRadius: 13
   lostRadius: 17
+--- !u!114 &6328133547591598670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6328133547591598669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d466dd55780ee4f4fa33617b0e748d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRadius: 9
+--- !u!114 &6328133547591598665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6328133547591598669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f198455f0ffeda34dabb793d4c106b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!114 &6328133547591598671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,19 +178,6 @@ MonoBehaviour:
   gunHolder: {fileID: 8871491568582344683}
   weaponsData:
   - {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
---- !u!114 &6328133547591598670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6328133547591598669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d466dd55780ee4f4fa33617b0e748d51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRadius: 9
 --- !u!1001 &6328133549666782842
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,9 +27,10 @@ public class TerrainGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool holdingG = Input.GetKey(KeyCode.G);
         bool lmb = Input.GetKey(KeyCode.Mouse0);
         bool rmb = Input.GetKey(KeyCode.Mouse1);
-        if (lmb || rmb)
+        if (holdingG && (lmb || rmb))
         {
             Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
             RaycastHit hit;
@@ -61,11 +62,11 @@ public class TerrainGun : MonoBehaviour
         endlessTerrain.EditChunkPoints(chunk, hitPos, isolevelDiff, terrainEditingRange);
     }
 
-    private void OnGUI()
-    {
-        int size = 12;
-        float posX = cam.pixelWidth / 2 - size / 4;
-        float posY = cam.pixelHeight / 2 - size / 2;
-        GUI.Label(new Rect(posX, posY, size, size), "*");
-    }
+    //private void OnGUI()
+    //{
+    //    int size = 12;
+    //    float posX = cam.pixelWidth / 2 - size / 4;
+    //    float posY = cam.pixelHeight / 2 - size / 2;
+    //    GUI.Label(new Rect(posX, posY, size, size), "*");
+    //}
 }
