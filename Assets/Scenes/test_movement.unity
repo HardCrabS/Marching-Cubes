@@ -925,7 +925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d8198fbbf90554aa966c4ce237d481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmount: 5
+  amountRange: {x: 0, y: 0}
+  defaultEnemyPrefab: {fileID: 0}
   enemyPrefabs:
   - {fileID: 6328133547591598645, guid: c1cf4ef4d1422e44db9e91b35bfa544d, type: 3}
   - {fileID: 6328133547591598645, guid: 42534dbc473b0f5478e108cc73faadec, type: 3}
@@ -975,6 +976,8 @@ MonoBehaviour:
   chunksHolder: {fileID: 0}
   isRandomAtStart: 0
   mapScaleFactor: 0.6
+  maxEnemiesOnMap: 10
+  levelFinishPrefab: {fileID: 0}
 --- !u!4 &1844646063
 Transform:
   m_ObjectHideFlags: 0
@@ -1186,6 +1189,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: weaponsData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: weaponsData.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
     - target: {fileID: 1773623360729482, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: m_Name
       value: First Person Controller

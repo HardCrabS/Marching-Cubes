@@ -7,14 +7,33 @@ public class GunController : MonoBehaviour
     public Transform gunHolder;
     public WeaponData[] weaponsData;
 
-    Gun equippedGun;
-    WeaponData equippedWeaponData;
+    Gun activeGun;
+    int activeSlot = 0;
+    WeaponData[] equippedWeaponsData;
+
+    const int EQUIPPED_WEAPONS_COUNT = 2;
 
     private void Start()
     {
-        if (weaponsData.Length > 0)
+        equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
+        for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
         {
-            EquipGun(weaponsData[0]);
+            if (weaponsData[i])
+                EquipGun(weaponsData[i], i);
+        }
+    }
+
+    private void Update()
+    {
+        int scrollDiff = (int)Input.mouseScrollDelta.y;
+        if (scrollDiff != 0)
+        {
+            int desiredSlot = (activeSlot + 1) % EQUIPPED_WEAPONS_COUNT;
+            if (equippedWeaponsData[desiredSlot] != null)
+            {
+                activeSlot = desiredSlot;
+                SwitchWeapon();
+            }
         }
     }
 
@@ -24,19 +43,25 @@ public class GunController : MonoBehaviour
         if (!pickup)
             return;
 
-        EquipGun(pickup.weaponData);
+        EquipGun(pickup.weaponData, GetFreeGunSlot());
     }
 
-    void EquipGun(WeaponData weaponToEquip)
+    void EquipGun(WeaponData weaponToEquip, int slot)
     {
-        if (equippedGun != null)
+        if (equippedWeaponsData[slot] != null)
         {
-            DropGun(equippedWeaponData);
-            Destroy(equippedGun.gameObject);
+            DropGun(equippedWeaponsData[slot]);
+            Destroy(activeGun.gameObject);
         }
-        equippedWeaponData = weaponToEquip;
-        equippedGun = Instantiate(weaponToEquip.weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
-        equippedGun.onPickUp.Invoke();
+        else
+        {
+            equippedWeaponsData[slot] = weaponToEquip;
+            if (activeGun != null)
+                return;
+        }
+        equippedWeaponsData[slot] = weaponToEquip;
+        activeGun = Instantiate(weaponToEquip.weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
+        activeGun.onPickUp.Invoke();
     }
 
     void DropGun(WeaponData weaponToDrop)
@@ -44,19 +69,37 @@ public class GunController : MonoBehaviour
         Instantiate(weaponToDrop.weaponPickupPrefab, gunHolder.position, gunHolder.rotation);
     }
 
+    void SwitchWeapon()
+    {
+        if (activeGun)
+            Destroy(activeGun.gameObject);
+        activeGun = Instantiate(equippedWeaponsData[activeSlot].weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
+        activeGun.onPickUp.Invoke();
+    }
+
+    int GetFreeGunSlot()
+    {
+        for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
+        {
+            if (equippedWeaponsData[i] == null)
+                return i;
+        }
+        return activeSlot;
+    }
+
     public void OnTriggerHold()
     {
-        if (equippedGun != null)
+        if (activeGun != null)
         {
-            equippedGun.OnTriggerHold();
+            activeGun.OnTriggerHold();
         }
     }
 
     public void Reload()
     {
-        if (equippedGun != null)
+        if (activeGun != null)
         {
-            equippedGun.Reload();
+            activeGun.Reload();
         }
     }
 }

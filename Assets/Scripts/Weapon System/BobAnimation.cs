@@ -31,10 +31,11 @@ public class BobAnimation : MonoBehaviour
         if (!fpsMovement)
             return;
 
-        float delta = Time.deltaTime * idleSpeed;
+        float delta = idleSpeed;
         Vector2 playerInputVelocity = fpsMovement.getDesiredVelocity();
         float velocity = playerInputVelocity.magnitude * walkSpeedMultiplier;
         delta += Mathf.Clamp(velocity, 0, walkSpeedMax);
+        delta *= Time.deltaTime;
 
         // Reduce by two so that the gun animation is more U shaped
         sinX += delta / 2;
