@@ -40,6 +40,11 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public Gun GetActiveGun()
+    {
+        return activeGun;
+    }
+
     public void EquipGun(GameObject interactableGO)
     {
         var pickup = interactableGO.GetComponent<PickupGun>();
@@ -68,7 +73,7 @@ public class GunController : MonoBehaviour
         onGunSwitched?.Invoke(activeGun);
     }
 
-    void DropGun(WeaponData weaponToDrop)
+    public void DropGun(WeaponData weaponToDrop)
     {
         Instantiate(weaponToDrop.weaponPickupPrefab, gunHolder.position, gunHolder.rotation);
     }

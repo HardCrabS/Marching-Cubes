@@ -23,6 +23,8 @@ public class Enemy : Character
 
     public override void Kill()
     {
+        var gunCtrl = GetComponent<GunController>();
+        gunCtrl.DropGun(gunCtrl.GetActiveGun().weaponData);
         EventsDispatcher.Instance.onEnemyKilled?.Invoke(enemyType);
         base.Kill();
     }
