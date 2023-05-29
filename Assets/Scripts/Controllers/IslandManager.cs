@@ -97,6 +97,8 @@ public class IslandManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         var meshGen = FindObjectOfType<MeshGenerator>();
+        if (!meshGen)
+            return;
         float mapSize = meshGen.ChunkSize * meshGen.chunksCount.x * meshGen.ChunksHolder.transform.localScale.x;
         Vector3 mapBottomLeft = meshGen.ChunksHolder.transform.position;
         Vector3 center = mapBottomLeft + new Vector3(1, 0, 1) * mapSize / 2;

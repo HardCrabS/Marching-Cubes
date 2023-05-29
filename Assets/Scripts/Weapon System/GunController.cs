@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class GunController : MonoBehaviour
 {
     public Transform gunHolder;
     public WeaponData[] weaponsData;
+
+    public Action<Gun> onGunSwitched;
 
     Gun activeGun;
     int activeSlot = 0;
@@ -18,7 +21,7 @@ public class GunController : MonoBehaviour
         equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
         for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
         {
-            if (weaponsData[i])
+            if (i < weaponsData.Length && weaponsData[i])
                 EquipGun(weaponsData[i], i);
         }
     }
@@ -62,6 +65,7 @@ public class GunController : MonoBehaviour
         equippedWeaponsData[slot] = weaponToEquip;
         activeGun = Instantiate(weaponToEquip.weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
         activeGun.onPickUp.Invoke();
+        onGunSwitched?.Invoke(activeGun);
     }
 
     void DropGun(WeaponData weaponToDrop)
@@ -75,6 +79,7 @@ public class GunController : MonoBehaviour
             Destroy(activeGun.gameObject);
         activeGun = Instantiate(equippedWeaponsData[activeSlot].weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
         activeGun.onPickUp.Invoke();
+        onGunSwitched?.Invoke(activeGun);
     }
 
     int GetFreeGunSlot()

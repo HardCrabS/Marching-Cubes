@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
 
     public System.Action onPickUp;
     public System.Action onGunShoot;
+    public System.Action<int, int> onAmmoUpdated;
 
     float nextShotTime = 0f;
     bool isReloading = false;
@@ -21,6 +22,7 @@ public class Gun : MonoBehaviour
     {
         soundPitcher = gameObject.GetComponent<SoundPitcher>();
         currAmmoInMag = weaponData.ammoMax;
+        onAmmoUpdated?.Invoke(currAmmoInMag, weaponData.ammoMax);
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class Gun : MonoBehaviour
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
 
             EventsDispatcher.Instance.onShoot?.Invoke();
+            onAmmoUpdated?.Invoke(currAmmoInMag, weaponData.ammoMax);
             onGunShoot?.Invoke();
 
             soundPitcher.PlaySound(weaponData.shotSFX);
@@ -91,5 +94,6 @@ public class Gun : MonoBehaviour
 
         isReloading = false;
         currAmmoInMag = weaponData.ammoMax;
+        onAmmoUpdated?.Invoke(currAmmoInMag, weaponData.ammoMax);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
@@ -67,7 +66,6 @@ public class MeshGenerator : MonoBehaviour
         }
 
         chunkSize = (pointsPerAxis - 1) * pointsOffset;
-        //InitChunks();
     }
 
     void InitMesh(Mesh mesh)
