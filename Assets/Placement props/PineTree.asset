@@ -17,8 +17,6 @@ MonoBehaviour:
   isComplexProp: 0
   minHeight: 6
   maxHeight: 50
-  xRange: {x: 0, y: 50}
-  zRange: {x: 0, y: 50}
   rotateTowardsNormal: 0.106
   rotationRange: {x: 0, y: 360}
   minScale: {x: 2, y: 2, z: 2}

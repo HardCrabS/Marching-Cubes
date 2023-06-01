@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,11 @@ public class Gun : MonoBehaviour
     {
         if (!isReloading && currAmmoInMag == 0)
             Reload();
+    }
+
+    public Tuple<int, int> GetAmmoInfo()
+    {
+        return new Tuple<int, int>(currAmmoInMag, weaponData.ammoMax);
     }
 
     public void OnTriggerHold()

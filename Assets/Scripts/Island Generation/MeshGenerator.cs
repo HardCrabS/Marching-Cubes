@@ -145,6 +145,8 @@ public class MeshGenerator : MonoBehaviour
         chunkCo.SetUp(chunk, ChunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
 
+        GeneratePropsOnChunk(chunkCo.transform);
+
         return chunkCo;
     }
 

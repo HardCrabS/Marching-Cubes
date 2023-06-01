@@ -34,12 +34,13 @@ public class IslandManager : MonoBehaviour
         float mapSize = meshGen.MapSizeInWorldCoords;
         float roughRadius = mapSize * 0.9f / 2;
 
-        Transform player = FindObjectOfType<Player>().transform;
+        Transform player = Player.Instance.transform;
         float randAngle = Random.Range(0, 360f);
         Vector3 randDirection = Quaternion.Euler(0, randAngle, 0) * Vector3.forward;
         Vector3 desiredPos = meshGen.MapCenter + randDirection * roughRadius;
         Physics.Raycast(desiredPos + Vector3.up * 100, Vector3.down, out RaycastHit hit, Mathf.Infinity);
         player.position = hit.point;
+        Player.Instance.Initialize();
 
         // spawn finish level prop behind player
         desiredPos = meshGen.MapCenter + randDirection * roughRadius * 1.1f;

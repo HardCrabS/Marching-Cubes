@@ -16,7 +16,7 @@ public class GunController : MonoBehaviour
 
     const int EQUIPPED_WEAPONS_COUNT = 2;
 
-    private void Start()
+    public void Initialize()
     {
         equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
         for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)

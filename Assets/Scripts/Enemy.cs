@@ -15,6 +15,12 @@ public class Enemy : Character
 {
     public EnemyType enemyType;
 
+    private void Start()
+    {
+        GunController gunController = GetComponent<GunController>();
+        gunController.Initialize();
+    }
+
     public override void TakeDamage()
     {
         EnemyNotification enemyNotification = new EnemyNotification(GetComponent<AttackState>(), transform.position, NotificationReason.TookDamage);
