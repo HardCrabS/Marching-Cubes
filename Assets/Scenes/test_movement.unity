@@ -1189,14 +1189,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
-      propertyPath: weaponsData.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
-      propertyPath: weaponsData.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
     - target: {fileID: 1773623360729482, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: m_Name
       value: First Person Controller

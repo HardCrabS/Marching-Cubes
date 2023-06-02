@@ -26,6 +26,12 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public void FinalizeCtrl()
+    {
+        Destroy(activeGun.GetComponentInChildren<BobAnimation>());
+        Destroy(activeGun.GetComponentInChildren<WeaponSway>());
+    }
+
     private void Update()
     {
         int scrollDiff = (int)Input.mouseScrollDelta.y;

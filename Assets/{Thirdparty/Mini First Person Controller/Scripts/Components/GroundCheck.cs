@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 public class GroundCheck : MonoBehaviour
 {
     [Tooltip("Maximum distance from the ground.")]
