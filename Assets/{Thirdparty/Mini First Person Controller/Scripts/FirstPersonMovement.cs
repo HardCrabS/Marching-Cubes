@@ -43,7 +43,7 @@ public class FirstPersonMovement : MonoBehaviour
             // move player a bit up in case terrain is edited by his feet. Prevents falling throught regenerated collider
             float pointOffset = MeshGenerator.Instance.pointsOffset;
             float dst = Vector3.Distance(transform.position, terrainEditPoint);
-            if (dst < editingRadius * pointOffset)
+            if (dst < editingRadius * pointOffset / 2)
             {
                 Vector3 dir = transform.up * (editingRadius * pointOffset - dst*0.5f);
                 transform.position = transform.position + dir;

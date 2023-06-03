@@ -593,7 +593,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593727746557118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -797,6 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunHolder: {fileID: 635447294}
+  shovelWeaponData: {fileID: 11400000, guid: 39b8299d7d923a549b24e604425a2afd, type: 2}
   weaponsData:
   - {fileID: 11400000, guid: 34ad474094c8c6847ac38fac11c43c89, type: 2}
   - {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
@@ -827,7 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0032235ae87ab0f48aa18b3292df2750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 500
 --- !u!1 &1963958859065967600
 GameObject:
   m_ObjectHideFlags: 0

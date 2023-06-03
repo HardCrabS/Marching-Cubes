@@ -12,14 +12,19 @@ public class Gun : MonoBehaviour
     public System.Action onGunShoot;
     public System.Action<int, int> onAmmoUpdated;
 
-    float nextShotTime = 0f;
-    bool isReloading = false;
-    int currAmmoInMag;
+    protected float nextShotTime = 0f;
+    protected bool isReloading = false;
+    protected int currAmmoInMag;
 
     SoundPitcher soundPitcher;
 
     // Start is called before the first frame update
     void Start()
+    {
+        Initialize();
+    }
+
+    protected virtual void Initialize()
     {
         soundPitcher = gameObject.GetComponent<SoundPitcher>();
         currAmmoInMag = weaponData.ammoMax;
@@ -48,7 +53,7 @@ public class Gun : MonoBehaviour
         Shoot();
     }
 
-    void Shoot()
+    protected virtual void Shoot()
     {
         if (!isReloading && currAmmoInMag > 0 && Time.time >= nextShotTime)
         {
@@ -67,7 +72,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void Reload()
+    public virtual void Reload()
     {
         if (!isReloading && currAmmoInMag != weaponData.ammoMax)
         {

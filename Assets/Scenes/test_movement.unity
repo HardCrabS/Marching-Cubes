@@ -1402,6 +1402,14 @@ PrefabInstance:
       propertyPath: health
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: weaponsData.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 34ad474094c8c6847ac38fac11c43c89, type: 2}
+    - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: shovelWeaponData
+      value: 
+      objectReference: {fileID: 11400000, guid: 39b8299d7d923a549b24e604425a2afd, type: 2}
     - target: {fileID: 1773623360729482, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: m_Name
       value: First Person Controller

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db67499aaa0b264383406683d1a48d7, type: 3}
+  m_Name: Shovel
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 563023980950029190, guid: c14bc6f3151d7cc458bf20dd221dc46b, type: 3}
+  weaponPickupPrefab: {fileID: 0}
+  projectile: {fileID: 0}
+  damage: 30
+  speed: 50
+  msBetweenShots: 500
+  ammoMax: 1
+  reloadTime: 1.5
+  impactFX: {fileID: 0}
+  shotSFX: {fileID: 0}
+  reloadSFX: {fileID: 0}

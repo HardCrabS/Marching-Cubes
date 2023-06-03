@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Transform gunHolder;
+    public WeaponData shovelWeaponData;
     public WeaponData[] weaponsData;
 
     public Action<Gun> onGunSwitched;
@@ -14,11 +15,13 @@ public class GunController : MonoBehaviour
     int activeSlot = 0;
     WeaponData[] equippedWeaponsData;
     Transform autoAimTarget;
+    bool isPlayer = false;
 
     const int EQUIPPED_WEAPONS_COUNT = 2;
 
     public void Initialize(Transform autoAimTarget = null)
     {
+        isPlayer = autoAimTarget == null;
         this.autoAimTarget = autoAimTarget;
         equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
         for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
@@ -39,6 +42,9 @@ public class GunController : MonoBehaviour
 
     private void Update()
     {
+        if (!isPlayer)
+            return;
+
         int scrollDiff = (int)Input.mouseScrollDelta.y;
         if (scrollDiff != 0)
         {
@@ -52,6 +58,13 @@ public class GunController : MonoBehaviour
         if (autoAimTarget != null)
         {
             gunHolder.transform.LookAt(autoAimTarget);
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Destroy(activeGun.gameObject);
+            activeGun = Instantiate(shovelWeaponData.weaponPrefab, gunHolder.position, gunHolder.rotation, gunHolder);
+            activeGun.onPickUp.Invoke();
+            onGunSwitched?.Invoke(activeGun);
         }
     }
 
