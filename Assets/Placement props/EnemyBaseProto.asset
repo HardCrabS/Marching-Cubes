@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 109ec3ab223644e42afd999b347cb6af, type: 3}
-  m_Name: EnemyBase (0)
+  m_Name: EnemyBaseProto
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3121270287330664276, guid: 5d4d460250d4ae045b1fc634d29e3b77, type: 3}
+  prefab: {fileID: 7787010287348600059, guid: d1a1efe74c5dedd489f11e477feabd9a, type: 3}
   density: 1
   isComplexProp: 1
   minHeight: 6

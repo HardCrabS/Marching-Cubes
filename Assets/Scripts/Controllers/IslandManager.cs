@@ -10,7 +10,16 @@ public class IslandManager : MonoBehaviour
     public int maxEnemiesOnMap = 10;
     public GameObject levelFinishPrefab;
 
+    public static IslandManager Instance;
+
     int enemiesSpawned = 0;
+
+    List<Chunk> chunks;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -21,11 +30,16 @@ public class IslandManager : MonoBehaviour
         }
         if (MeshGenerator.Instance)
         {
-            List<Chunk> chunks = MeshGenerator.Instance.InitChunks();
+            chunks = MeshGenerator.Instance.InitChunks();
             chunksHolder.localScale *= mapScaleFactor;
             FindObjectOfType<EndlessTerrain>().SetupChunks(chunks, mapScaleFactor);
             StartCoroutine(DelayedSpawn(chunks));
         }
+    }
+
+    public List<Chunk> GetChunks()
+    {
+        return chunks;
     }
 
     void MovePlayerOnEdge()
@@ -52,6 +66,10 @@ public class IslandManager : MonoBehaviour
     {
         // wait until terrain mesh collider is updated
         yield return new WaitForSeconds(1f);
+
+        // spawn rare props at random chunk
+        var randChunk = chunks[Random.Range(0, chunks.Count)];
+        MeshGenerator.Instance.GeneratePropsOnChunk(randChunk.transform, rareProps: true);
 
         foreach (var chunk in chunks)
         {

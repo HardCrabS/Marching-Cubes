@@ -39,6 +39,18 @@ public class PlacementGenerator : MonoBehaviour
         }
     }
 
+    public static RaycastHit GetRandomHitAtChunk(Transform chunkTransform, float chunkSize)
+    {
+        float sampleX = Random.Range(0, chunkSize);
+        float sampleY = Random.Range(0, chunkSize);
+        Vector3 rayStart = new Vector3(sampleX, 100f, sampleY) + chunkTransform.position;
+
+        if (!Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, Mathf.Infinity))
+            return new RaycastHit();
+
+        return hit;
+    }
+
     private static void SpawnProp(PlacementProps placementProps, Transform terrainTransform, RaycastHit hit)
     {
         GameObject instantiatedPrefab = Instantiate(placementProps.prefab, terrainTransform);
@@ -56,14 +68,18 @@ public class PlacementGenerator : MonoBehaviour
 
     private static void SpawnComplexProp(ComplexProp complexProp, GameObject prefab, Transform terrainTransform, RaycastHit hit)
     {
+        if (Vector3.Angle(hit.normal, Vector3.up) > 45f)
+            return;
+
         GameObject instantiatedPrefab = Instantiate(prefab, terrainTransform);
         instantiatedPrefab.transform.position = hit.point;
+
+        instantiatedPrefab.transform.rotation = Quaternion.Lerp(terrainTransform.rotation, terrainTransform.rotation *
+            Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), complexProp.rotateTowardsNormal);
         if (complexProp.rotationRange.y > 0)
             instantiatedPrefab.transform.Rotate(instantiatedPrefab.transform.up, Random.Range(complexProp.rotationRange.x, complexProp.rotationRange.y), Space.Self);
         else
             instantiatedPrefab.transform.rotation = prefab.transform.rotation;
-        instantiatedPrefab.transform.rotation *= Quaternion.Lerp(terrainTransform.rotation, terrainTransform.rotation *
-            Quaternion.FromToRotation(instantiatedPrefab.transform.up, hit.normal), complexProp.rotateTowardsNormal);
 
         Vector3 scale = instantiatedPrefab.transform.localScale;
         scale.x *= 1f + Random.Range(-complexProp.scalePercent, complexProp.scalePercent);

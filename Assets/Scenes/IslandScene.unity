@@ -533,8 +533,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51868d11a351b914e90c19a570a1bbf3, type: 2}
   - {fileID: 11400000, guid: bec221802e4b8c0469e445cfc6780bdc, type: 2}
   - {fileID: 11400000, guid: 064c827268c76404fa87cae75ab09993, type: 2}
-  - {fileID: 11400000, guid: e34422878985db944a50297cf376eb8a, type: 2}
+  - {fileID: 11400000, guid: f5624501673f9de4b83de622ec563a66, type: 2}
   - {fileID: 11400000, guid: f9e995ee857d7564aaacebd2b8e9cd04, type: 2}
+  placementPropsPerIsland:
+  - {fileID: 11400000, guid: 0bc59e8d6096c784aba35798de404698, type: 2}
   isolevel: 1
   hardEdges: 0
   chunksCount: {x: 4, y: 0, z: 4}
@@ -969,6 +971,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &895953328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895953330}
+  - component: {fileID: 895953329}
+  m_Layer: 0
+  m_Name: Treasure Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &895953329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895953328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509b3b67e8e927b44bf8501733d15f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treasurePrefab: {fileID: 4962114070604631903, guid: 4a3109bf5af25624aa5bb4c02d7ff02b, type: 3}
+  treasureCrossCanvas: {fileID: 3625840385419245806, guid: a3a97ec721ff15a47a1accf491214a23, type: 3}
+  depth: 1.5
+--- !u!4 &895953330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895953328}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956596431
 GameObject:
@@ -1409,6 +1457,10 @@ PrefabInstance:
       propertyPath: healthFillImage
       value: 
       objectReference: {fileID: 63071686}
+    - target: {fileID: 1626342210, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1770186160, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1513,5 +1565,9 @@ PrefabInstance:
       propertyPath: minimapCamera
       value: 
       objectReference: {fileID: 1075034781}
+    - target: {fileID: 1419842827346562798, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}

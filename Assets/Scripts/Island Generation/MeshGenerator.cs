@@ -5,6 +5,7 @@ public class MeshGenerator : MonoBehaviour
 {
     public bool isPropsPlacementEnabled = false;
     public PlacementProps[] placementProps;
+    public PlacementProps[] placementPropsPerIsland;
     public float isolevel = 0;
     public bool hardEdges = false;
     public Vector3Int chunksCount;
@@ -145,17 +146,20 @@ public class MeshGenerator : MonoBehaviour
         chunkCo.SetUp(chunk, ChunkSize, terrainMat);
         chunkCo.SetMesh(meshData.mesh, meshData.points);
 
-        GeneratePropsOnChunk(chunkCo.transform);
+        if (!Application.isPlaying)
+            GeneratePropsOnChunk(chunkCo.transform);
 
         return chunkCo;
     }
 
-    public void GeneratePropsOnChunk(Transform chunkTransform)
+    public void GeneratePropsOnChunk(Transform chunkTransform, bool rareProps=false)
     {
         if (!isPropsPlacementEnabled)
             return;
 
-        foreach (var props in placementProps)
+        var propsToSpawn = rareProps ? placementPropsPerIsland : placementProps;
+
+        foreach (var props in propsToSpawn)
         {
             PlacementGenerator.Generate(props, chunkTransform, ChunkSize);
         }
