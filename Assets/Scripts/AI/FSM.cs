@@ -19,6 +19,8 @@ public class FSM : MonoBehaviour
     StateType curStateType;
 
     Dictionary<StateType, State> stateTypeToComponent;
+
+    bool isPlayerDead = false;
     
     private void Awake()
     {
@@ -32,6 +34,8 @@ public class FSM : MonoBehaviour
 
     private void Start()
     {
+        EventsDispatcher.Instance.onPlayerDead += () => { isPlayerDead = true; };
+
         var curStateComponent = StateTypeToComponent(curStateType);
         if (curStateComponent)
             curStateComponent.OnEnterState();
@@ -54,16 +58,7 @@ public class FSM : MonoBehaviour
         if (curStateComponent)
             curStateComponent.Execute();
 
-        // check transition by finding the state with highest priority
-        StateType newStateType = StateType.Idle;
-        foreach (var stateComponent in stateTypeToComponent.Values)
-        {
-            var stateType = stateComponent.DecideTransition();
-            if (stateType > newStateType)
-            {
-                newStateType = stateType;
-            }
-        }
+        StateType newStateType = GetTransitionState();
 
         // perform transition
         if (newStateType != curStateType)
@@ -75,5 +70,24 @@ public class FSM : MonoBehaviour
                 newStateComponent.OnEnterState();
             curStateType = newStateType;
         }
+    }
+
+    StateType GetTransitionState()
+    {
+        if (isPlayerDead)
+            return StateType.Wander;
+
+        // check transition by finding the state with highest priority
+        StateType newStateType = StateType.Idle;
+        foreach (var stateComponent in stateTypeToComponent.Values)
+        {
+            var stateType = stateComponent.DecideTransition();
+            if (stateType > newStateType)
+            {
+                newStateType = stateType;
+            }
+        }
+
+        return newStateType;
     }
 }

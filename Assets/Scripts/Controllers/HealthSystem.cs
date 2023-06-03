@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,11 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         curHealth = health;
+    }
+
+    public Tuple<float, float> GetHealthInfo()
+    {
+        return new Tuple<float, float>(curHealth, health);
     }
 
     public void TakeDamage(float damage)

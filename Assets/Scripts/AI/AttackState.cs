@@ -37,7 +37,7 @@ public class AttackState : State
     {
         gunController = GetComponent<GunController>();
         movement = GetComponent<AIMovement>();
-        playerTransform = FindObjectOfType<Player>().transform;
+        playerTransform = Player.Instance.transform;
     }
 
     public override void OnEnterState()

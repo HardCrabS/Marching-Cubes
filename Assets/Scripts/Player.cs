@@ -14,6 +14,8 @@ public class Player : Character
 
     public Action<int, int> onAmmoUpdated;
 
+    HealthSystem healthSystem;
+
     private void Awake()
     {
         Instance = this;
@@ -37,6 +39,10 @@ public class Player : Character
         gunController.onGunSwitched += HandleSwitchGun;
 
         gunController.Initialize();
+
+        healthSystem = GetComponent<HealthSystem>();
+        var hpInfo = healthSystem.GetHealthInfo();
+        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hpInfo.Item1, hpInfo.Item2);
     }
 
     void HandleSwitchGun(Gun gun)
@@ -44,6 +50,14 @@ public class Player : Character
         var ammoInfo = gun.GetAmmoInfo();
         onAmmoUpdated?.Invoke(ammoInfo.Item1, ammoInfo.Item2);
         gun.onAmmoUpdated += onAmmoUpdated;
+    }
+
+    public override void TakeDamage()
+    {
+        base.TakeDamage();
+
+        var hpInfo = healthSystem.GetHealthInfo();
+        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hpInfo.Item1, hpInfo.Item2);
     }
 
     public override void Kill()

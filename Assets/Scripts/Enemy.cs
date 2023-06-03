@@ -18,7 +18,7 @@ public class Enemy : Character
     private void Start()
     {
         GunController gunController = GetComponent<GunController>();
-        gunController.Initialize();
+        gunController.Initialize(autoAimTarget: Player.Instance.transform);
     }
 
     public override void TakeDamage()

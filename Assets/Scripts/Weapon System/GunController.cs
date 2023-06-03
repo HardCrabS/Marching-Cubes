@@ -13,11 +13,13 @@ public class GunController : MonoBehaviour
     Gun activeGun;
     int activeSlot = 0;
     WeaponData[] equippedWeaponsData;
+    Transform autoAimTarget;
 
     const int EQUIPPED_WEAPONS_COUNT = 2;
 
-    public void Initialize()
+    public void Initialize(Transform autoAimTarget = null)
     {
+        this.autoAimTarget = autoAimTarget;
         equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
         for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
         {
@@ -28,8 +30,11 @@ public class GunController : MonoBehaviour
 
     public void FinalizeCtrl()
     {
-        Destroy(activeGun.GetComponentInChildren<BobAnimation>());
-        Destroy(activeGun.GetComponentInChildren<WeaponSway>());
+        if (activeGun)
+        {
+            Destroy(activeGun.GetComponentInChildren<BobAnimation>());
+            Destroy(activeGun.GetComponentInChildren<WeaponSway>());
+        }
     }
 
     private void Update()
@@ -43,6 +48,10 @@ public class GunController : MonoBehaviour
                 activeSlot = desiredSlot;
                 SwitchWeapon();
             }
+        }
+        if (autoAimTarget != null)
+        {
+            gunHolder.transform.LookAt(autoAimTarget);
         }
     }
 
