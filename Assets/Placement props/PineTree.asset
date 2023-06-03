@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109ec3ab223644e42afd999b347cb6af, type: 3}
   m_Name: PineTree
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2314952926817031353, guid: 42855e6be94256042be40098e1e47cf3, type: 3}
-  density: 35
+  prefab: {fileID: 8758888183437167707, guid: 2caeb99d3229fee4aa4f3bc8c1c8fc07, type: 3}
+  density: 15
   isComplexProp: 0
   minHeight: 6
   maxHeight: 50
   rotateTowardsNormal: 0.106
   rotationRange: {x: 0, y: 360}
-  minScale: {x: 2, y: 2, z: 2}
-  maxScale: {x: 3, y: 3, z: 3}
+  minScale: {x: 1, y: 1, z: 1}
+  maxScale: {x: 2, y: 2, z: 2}

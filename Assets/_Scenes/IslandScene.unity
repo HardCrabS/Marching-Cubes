@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.42352942, g: 0.6039216, b: 0.5137255, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.025
@@ -535,6 +535,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 064c827268c76404fa87cae75ab09993, type: 2}
   - {fileID: 11400000, guid: f5624501673f9de4b83de622ec563a66, type: 2}
   - {fileID: 11400000, guid: f9e995ee857d7564aaacebd2b8e9cd04, type: 2}
+  - {fileID: 11400000, guid: 46fc8fbdd8c65e74d931d29db505e8b0, type: 2}
+  - {fileID: 11400000, guid: 0fa192a24b140e64f81c29350adcf5d5, type: 2}
   placementPropsPerIsland:
   - {fileID: 11400000, guid: 0bc59e8d6096c784aba35798de404698, type: 2}
   isolevel: 1
