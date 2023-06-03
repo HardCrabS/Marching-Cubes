@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 109ec3ab223644e42afd999b347cb6af, type: 3}
-  m_Name: PineTree
+  m_Name: HealthTree
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2314952926817031353, guid: 42855e6be94256042be40098e1e47cf3, type: 3}
-  density: 35
+  prefab: {fileID: 5277948495441474227, guid: 4f122c0c9716a7d4d81063fa7870f377, type: 3}
+  density: 5
   isComplexProp: 0
   minHeight: 6
   maxHeight: 50

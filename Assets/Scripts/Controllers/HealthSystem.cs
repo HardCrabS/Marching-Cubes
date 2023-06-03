@@ -12,6 +12,17 @@ public class HealthSystem : MonoBehaviour
     private void Start()
     {
         curHealth = health;
+
+        EventsDispatcher.Instance.onInteract += PickupHealth;
+    }
+
+    public void PickupHealth(GameObject interactableGO)
+    {
+        var pickup = interactableGO.GetComponent<PickupHealth>();
+        if (pickup == null)
+            return;
+
+        TakeDamage(-pickup.healthToAdd);
     }
 
     public Tuple<float, float> GetHealthInfo()
@@ -21,7 +32,7 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        curHealth -= damage;
+        curHealth = Mathf.Clamp(curHealth - damage, 0, health);
         var character = GetComponent<Character>();
         if (character != null)
         {
@@ -35,6 +46,8 @@ public class HealthSystem : MonoBehaviour
 
     void Kill()
     {
+        EventsDispatcher.Instance.onInteract -= PickupHealth;
+
         var character = GetComponent<Character>();
         if (character != null)
         {
