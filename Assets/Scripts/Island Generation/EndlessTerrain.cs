@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour
 {
+    public LayerMask decorativeLayer;
     public float maxViewDistance = 300;
     public Transform viewerTransform;
 
@@ -15,6 +16,13 @@ public class EndlessTerrain : MonoBehaviour
     Dictionary<Vector3Int, Chunk> terrainChunkDict;
     List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
     List<Chunk> terrainChunksToTurnOff = new List<Chunk>();
+
+    public static EndlessTerrain Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -115,6 +123,8 @@ public class EndlessTerrain : MonoBehaviour
             }
         }
 
+        DestroyObjectsWithNoBase(terrainEditingRange, hitPos);
+
         foreach (Chunk ch in affectedChunks.Values)
         {
             MeshGenerator.Instance.UpdateChunkMesh(ch);
@@ -193,5 +203,18 @@ public class EndlessTerrain : MonoBehaviour
             return foundChunk;
         }
         return null;
+    }
+
+    void DestroyObjectsWithNoBase(float radius, Vector3 hitPoint)
+    {
+        var colliders = Physics.OverlapSphere(hitPoint, radius, decorativeLayer, QueryTriggerInteraction.Collide);
+        foreach (var c in colliders)
+        {
+            // destroy objects which do not fall by gravity
+            if (!c.GetComponent<Rigidbody>())
+            {
+                Destroy(c.gameObject);
+            }
+        }
     }
 }

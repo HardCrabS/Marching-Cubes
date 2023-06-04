@@ -958,6 +958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a341b50b6aa5d46b5abe7c30f30cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decorativeLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   maxViewDistance: 100
   viewerTransform: {fileID: 1941810906}
 --- !u!4 &785119827

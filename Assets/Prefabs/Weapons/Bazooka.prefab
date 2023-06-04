@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3835695135415028197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2909496887435026226}
+  m_Layer: 0
+  m_Name: Shot point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2909496887435026226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3835695135415028197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9127818880610922543}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6107164811628036957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13,9 +43,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 0.04
-  idleSpeed: 0.6
-  walkSpeedMultiplier: 0.003
-  walkSpeedMax: 1
+  idleSpeed: 1.5
+  walkSpeedMultiplier: 1.8
+  walkSpeedMax: 10
 --- !u!1 &9127818880610922540
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,9 +56,11 @@ GameObject:
   m_Component:
   - component: {fileID: 9127818880610922543}
   - component: {fileID: 9127818880610922542}
-  - component: {fileID: 957329656200001188}
+  - component: {fileID: -2584679629412471360}
+  - component: {fileID: 284014551903553327}
+  - component: {fileID: 6697382250131074372}
   m_Layer: 0
-  m_Name: RocketLauncher
+  m_Name: Bazooka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +78,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5847304694262969362}
+  - {fileID: 2909496887435026226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intensity: 7
   smooth: 10
---- !u!114 &957329656200001188
+--- !u!114 &-2584679629412471360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,9 +105,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 9127818880610922540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9449b0cbaaeebf419068afd6b66843c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fba659779e75954b8d1c241ebedd9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponData: {fileID: 11400000, guid: 0d397b7c3e26cbc4e90d82dcec32940d, type: 2}
+  shotPoint: {fileID: 2909496887435026226}
+  rocket: {fileID: 2824808857787330568}
+--- !u!114 &284014551903553327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127818880610922540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a76e7af47b4f7d4798dca300d1de8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilPosition: {fileID: 9127818880610922543}
+  rotationPoint: {fileID: 9127818880610922543}
+  positionalRecoilSpeed: 8
+  rotationalRecoilSpeed: 8
+  positionalReturnSpeed: 18
+  rotationalReturnSpeed: 25
+  RecoilRotation: {x: 40, y: 15, z: 15}
+  RecoilKickBack: {x: 10, y: 10, z: 10}
+--- !u!114 &6697382250131074372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127818880610922540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e19cd6d3e665e4786b10bccf24b1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeRange: {x: 0.9, y: 1}
+  pitchRange: {x: 0.9, y: 1}
 --- !u!1001 &6345430680827836016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,5 +211,10 @@ GameObject:
 --- !u!4 &5847304694262969362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 660537340789195362, guid: 67a7e24bd17106e44b96414cadeb93f0, type: 3}
+  m_PrefabInstance: {fileID: 6345430680827836016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2824808857787330568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9168417505693255288, guid: 67a7e24bd17106e44b96414cadeb93f0, type: 3}
   m_PrefabInstance: {fileID: 6345430680827836016}
   m_PrefabAsset: {fileID: 0}

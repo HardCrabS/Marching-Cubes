@@ -55,7 +55,7 @@ public class Gun : MonoBehaviour
 
     protected virtual void Shoot()
     {
-        if (!isReloading && currAmmoInMag > 0 && Time.time >= nextShotTime)
+        if (IsShootAllowed())
         {
             Projectile prj = Instantiate(weaponData.projectile, shotPoint.position, shotPoint.rotation);
             prj.SetSpeed(weaponData.speed);
@@ -70,6 +70,11 @@ public class Gun : MonoBehaviour
 
             soundPitcher.PlaySound(weaponData.shotSFX);
         }
+    }
+
+    protected bool IsShootAllowed()
+    {
+        return !isReloading && currAmmoInMag > 0 && Time.time >= nextShotTime;
     }
 
     public virtual void Reload()

@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 6939750202642008246}
   - component: {fileID: 9166576612110056438}
   m_Layer: 0
-  m_Name: RocketLauncher Pickup
+  m_Name: Bazooka Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

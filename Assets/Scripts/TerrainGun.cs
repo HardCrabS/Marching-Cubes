@@ -20,7 +20,7 @@ public class TerrainGun : MonoBehaviour
     {
         shootParticles.SetActive(false);
         cam = GetComponent<Camera>();
-        endlessTerrain = FindObjectOfType<EndlessTerrain>();
+        endlessTerrain = EndlessTerrain.Instance;
         personMovement = GetComponentInParent<FirstPersonMovement>();
     }
 

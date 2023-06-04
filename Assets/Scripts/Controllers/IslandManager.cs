@@ -32,7 +32,7 @@ public class IslandManager : MonoBehaviour
         {
             chunks = MeshGenerator.Instance.InitChunks();
             chunksHolder.localScale *= mapScaleFactor;
-            FindObjectOfType<EndlessTerrain>().SetupChunks(chunks, mapScaleFactor);
+            EndlessTerrain.Instance.SetupChunks(chunks, mapScaleFactor);
             StartCoroutine(DelayedSpawn(chunks));
         }
     }

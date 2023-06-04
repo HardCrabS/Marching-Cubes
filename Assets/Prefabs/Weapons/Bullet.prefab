@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3558715635819863547}
   - component: {fileID: -2119629972990643256}
   - component: {fileID: 4472340905691514855}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 311
 --- !u!96 &4472340905691514855
 TrailRenderer:
   serializedVersion: 2

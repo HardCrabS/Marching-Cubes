@@ -18,13 +18,13 @@ public class ShovelGun : Gun
         base.Initialize();
 
         cam = GetComponentInParent<Camera>();
-        endlessTerrain = FindObjectOfType<EndlessTerrain>();
+        endlessTerrain = EndlessTerrain.Instance;
         personMovement = GetComponentInParent<FirstPersonMovement>();
     }
 
     protected override void Shoot()
     {
-        if (!isReloading && currAmmoInMag > 0 && Time.time >= nextShotTime)
+        if (IsShootAllowed())
         {
             nextShotTime = Time.time + weaponData.msBetweenShots / 1000f;
 

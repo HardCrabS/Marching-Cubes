@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponPickupPrefab: {fileID: 9098345289706689532, guid: 7db84f2bc58c6744ab3d6e3980b9b682, type: 3}
   projectile: {fileID: -2119629972990643256, guid: 05dfcb53f7dc09a4caea793776a4c376, type: 3}
   damage: 20
-  speed: 30
+  speed: 35
   msBetweenShots: 300
   ammoMax: 10
   reloadTime: 1

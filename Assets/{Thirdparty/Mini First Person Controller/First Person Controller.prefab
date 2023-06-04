@@ -799,7 +799,7 @@ MonoBehaviour:
   gunHolder: {fileID: 635447294}
   shovelWeaponData: {fileID: 11400000, guid: 39b8299d7d923a549b24e604425a2afd, type: 2}
   weaponsData:
-  - {fileID: 11400000, guid: 34ad474094c8c6847ac38fac11c43c89, type: 2}
+  - {fileID: 11400000, guid: 0d397b7c3e26cbc4e90d82dcec32940d, type: 2}
   - {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
 --- !u!114 &2071905440
 MonoBehaviour:

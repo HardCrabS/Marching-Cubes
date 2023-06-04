@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 725352291848575953}
   - component: {fileID: 1499593157281001932}
   - component: {fileID: 5416400805121910028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tree_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8775662048588501925}
-  m_Layer: 0
+  - component: {fileID: 8306003523967558874}
+  m_Layer: 10
   m_Name: Health Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +114,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8306003523967558874
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5277948495441474227}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.573926, y: 0.57, z: 0.4483261}
+  m_Center: {x: -0.006155491, y: 0.21000001, z: -0.041459084}
 --- !u!1001 &6783910610073018859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,6 +137,10 @@ PrefabInstance:
     - target: {fileID: 1186828275346984939, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
       propertyPath: m_Name
       value: Apple HP
+      objectReference: {fileID: 0}
+    - target: {fileID: 1186828275346984939, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1560229413057753552, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -167,6 +185,14 @@ PrefabInstance:
     - target: {fileID: 1560229413057753552, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521252357766334802, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572021175066309003, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab4eae236c2eecc48acef76889f1c12d, type: 3}
