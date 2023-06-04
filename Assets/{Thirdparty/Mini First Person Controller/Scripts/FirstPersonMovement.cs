@@ -25,6 +25,21 @@ public class FirstPersonMovement : MonoBehaviour
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        EventsDispatcher.Instance.onMouseControlChanged += (mCtrl) =>
+        {
+            if (mCtrl == MouseControl.UI)
+            {
+                m_rigidbody.freezeRotation = true;
+            }
+            else
+            {
+                m_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            }
+        };
+    }
+
     void FixedUpdate()
     {
         // Update IsRunning from input.

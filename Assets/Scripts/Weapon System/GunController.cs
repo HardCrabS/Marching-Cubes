@@ -125,9 +125,9 @@ public class GunController : MonoBehaviour
         return activeSlot;
     }
 
-    public void OnTriggerHold()
+    public void OnTriggerHold(MouseControl mouseControlMode = MouseControl.Shooting)
     {
-        if (activeGun != null)
+        if (mouseControlMode == MouseControl.Shooting && activeGun != null)
         {
             activeGun.OnTriggerHold();
         }

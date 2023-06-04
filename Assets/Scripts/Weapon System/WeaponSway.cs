@@ -10,10 +10,12 @@ public class WeaponSway : MonoBehaviour
 
     private Quaternion originRotation;
 
+    MouseControl mouseControl;
 
     private void Start()
     {
         originRotation = transform.localRotation;
+        EventsDispatcher.Instance.onMouseControlChanged += (mCtrl) => { mouseControl = mCtrl; };
     }
 
     private void Update()
@@ -23,6 +25,9 @@ public class WeaponSway : MonoBehaviour
 
     private void UpdateSway()
     {
+        if (mouseControl != MouseControl.Shooting)
+            return;
+
         //controls
         float t_x_mouse = Input.GetAxis("Mouse X");
         float t_y_mouse = Input.GetAxis("Mouse Y");

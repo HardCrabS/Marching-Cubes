@@ -620,10 +620,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 903654315, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 19.300293
-      objectReference: {fileID: 0}
     - target: {fileID: 1770186161, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1402,6 +1398,10 @@ PrefabInstance:
       propertyPath: health
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 1365536426, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2071905433, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
       propertyPath: weaponsData.Array.data[0]
       value: 
@@ -1517,6 +1517,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f122c0c9716a7d4d81063fa7870f377, type: 3}
+--- !u!1001 &1581020033348991084
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340425, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581020033224340431, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
+      propertyPath: m_Name
+      value: Robot arm Collectible
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8eb81f081034dc4194d0127af866dcb, type: 3}
 --- !u!1001 &3121270288245837934
 PrefabInstance:
   m_ObjectHideFlags: 0

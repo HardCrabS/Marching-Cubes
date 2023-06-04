@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum MouseControl
+{
+    Shooting,
+    UI
+}
+
+
 public class EventsDispatcher : MonoBehaviour
 {
     public System.Action<GameObject> onInteract;
-    public System.Action onTriggerHold;
+    public System.Action<MouseControl> onTriggerHold;
     public System.Action onShoot;
     public System.Action onReload;
     public System.Action onToggleMap;
@@ -15,8 +23,13 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action<EnemyNotification> onNotifyEnemies;
     public System.Action<EnemyType> onEnemyKilled;
     public System.Action<Quest> onQuestProgress;
+    public System.Action<MouseControl> onMouseControlChanged;
+    public System.Action onEscape;
+    public System.Action<CollectibleData> onCollectibleFound;
 
     public static EventsDispatcher Instance;
+
+    MouseControl mouseControlMode = MouseControl.Shooting;
 
     private void Awake()
     {
@@ -26,11 +39,16 @@ public class EventsDispatcher : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        onMouseControlChanged += (mCtrlMode) => { mouseControlMode = mCtrlMode; };
+    }
+
     private void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            onTriggerHold?.Invoke();
+            onTriggerHold?.Invoke(mouseControlMode);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -55,6 +73,10 @@ public class EventsDispatcher : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             onToggleMap?.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            onEscape?.Invoke();
         }
     }
 }
