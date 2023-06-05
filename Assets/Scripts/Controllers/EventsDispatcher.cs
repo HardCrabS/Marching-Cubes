@@ -26,6 +26,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action<MouseControl> onMouseControlChanged;
     public System.Action onEscape;
     public System.Action<CollectibleData> onCollectibleFound;
+    public System.Action<int> onMoneyUpdated;
 
     public static EventsDispatcher Instance;
 

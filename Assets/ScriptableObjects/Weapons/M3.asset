@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db67499aaa0b264383406683d1a48d7, type: 3}
+  m_Name: M3
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 957329656200001188, guid: 4233ffbe1288dc6419efd268aca13d82, type: 3}
+  weaponPickupPrefab: {fileID: 8902742555384657816, guid: 326b033b4c5802d4f92efc91b470906e, type: 3}
+  projectile: {fileID: -2119629972990643256, guid: 05dfcb53f7dc09a4caea793776a4c376, type: 3}
+  damage: 30
+  speed: 50
+  msBetweenShots: 150
+  ammoMax: 30
+  reloadTime: 1.5
+  impactFX: {fileID: 5518825951518478225, guid: c8c0a12221a0266468f148f50f0a284b, type: 3}
+  shotSFX: {fileID: 8300000, guid: 405b27846e2d296418618c85db56d4fb, type: 3}
+  reloadSFX: {fileID: 8300000, guid: 8382e5f98340ff847b71c443172b56f6, type: 3}
+  id: 64
+  title: M3
+  price: 800

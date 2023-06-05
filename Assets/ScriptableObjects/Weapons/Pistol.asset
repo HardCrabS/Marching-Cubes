@@ -23,3 +23,6 @@ MonoBehaviour:
   impactFX: {fileID: 5518825951518478225, guid: c8c0a12221a0266468f148f50f0a284b, type: 3}
   shotSFX: {fileID: 8300000, guid: 405b27846e2d296418618c85db56d4fb, type: 3}
   reloadSFX: {fileID: 8300000, guid: 8382e5f98340ff847b71c443172b56f6, type: 3}
+  id: 1
+  title: classic
+  price: 0

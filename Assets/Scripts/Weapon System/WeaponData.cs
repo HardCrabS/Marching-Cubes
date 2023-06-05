@@ -20,4 +20,10 @@ public class WeaponData : ScriptableObject
     [Header("SFX")]
     public AudioClip shotSFX;
     public AudioClip reloadSFX;
+
+    [Header("Meta")]
+    [Tooltip("Must be a bit: 0,1,2,4,8 etc.")]
+    public int id;
+    public string title;
+    public int price;
 }

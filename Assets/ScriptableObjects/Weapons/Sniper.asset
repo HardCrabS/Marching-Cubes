@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db67499aaa0b264383406683d1a48d7, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 957329656200001188, guid: ba0e11d598e63f743a12b13c771b14fc, type: 3}
+  weaponPickupPrefab: {fileID: 9098345289706689532, guid: 7db84f2bc58c6744ab3d6e3980b9b682, type: 3}
+  projectile: {fileID: -2119629972990643256, guid: 05dfcb53f7dc09a4caea793776a4c376, type: 3}
+  damage: 20
+  speed: 35
+  msBetweenShots: 300
+  ammoMax: 10
+  reloadTime: 1
+  impactFX: {fileID: 5518825951518478225, guid: c8c0a12221a0266468f148f50f0a284b, type: 3}
+  shotSFX: {fileID: 8300000, guid: 405b27846e2d296418618c85db56d4fb, type: 3}
+  reloadSFX: {fileID: 8300000, guid: 8382e5f98340ff847b71c443172b56f6, type: 3}
+  id: 256
+  title: sniper
+  price: 1500
