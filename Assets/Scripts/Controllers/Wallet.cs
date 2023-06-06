@@ -57,8 +57,8 @@ public class Wallet : MonoBehaviour
 
     void Load()
     {
-        EventsDispatcher.Instance.onMoneyUpdated?.Invoke(money);
         money = PlayerPrefsController.GetMoney();
+        EventsDispatcher.Instance.onMoneyUpdated?.Invoke(money);
         Debug.Log($"Loaded {money} money");
     }
 }

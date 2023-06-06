@@ -7,6 +7,7 @@ public class PlayerPrefsController
     const string MONEY_KEY = "Money";
     const string WEAPON_KEY = "Weapon";
     const string EQUIPPED_KEY = "Equipped";
+    const string UNLOCKED_ISLANDS_COUNT_KEY = "UnlockedIslandsCount";
 
     public static void SetMoney(int value)
     {
@@ -41,5 +42,19 @@ public class PlayerPrefsController
     public static int GetEquippedMask()
     {
         return PlayerPrefs.GetInt(EQUIPPED_KEY);
+    }
+
+    public static void UnlockIsland(string key)
+    {
+        PlayerPrefs.SetString(key, key);
+        PlayerPrefs.SetInt(UNLOCKED_ISLANDS_COUNT_KEY, GetUnlockedIslandsCount() + 1);
+    }
+    public static bool IsIslandUnlocked(string key)
+    {
+        return !string.IsNullOrEmpty(PlayerPrefs.GetString(key, ""));
+    }
+    public static int GetUnlockedIslandsCount()
+    {
+        return PlayerPrefs.GetInt(UNLOCKED_ISLANDS_COUNT_KEY, 1);
     }
 }
