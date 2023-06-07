@@ -22,7 +22,7 @@ public class WeaponData : ScriptableObject
     public AudioClip reloadSFX;
 
     [Header("Meta")]
-    [Tooltip("Must be a bit: 0,1,2,4,8 etc.")]
+    [Tooltip("Must be a power of two: 1,2,4,8 etc.")]
     public int id;
     public string title;
     public int price;

@@ -14,8 +14,14 @@ public class PickupCollectible : MonoBehaviour, IInteractable
     float initFocalLenth;
     DepthOfField depthOfField;
 
+    bool routineStarted = false;
+
     public void Interact()
     {
+        if (routineStarted)
+            return;
+
+        routineStarted = true;
         EventsDispatcher.Instance.onMouseControlChanged?.Invoke(MouseControl.UI);
 
         Transform playerCamera = Player.Instance.GetComponentInChildren<Camera>().transform;

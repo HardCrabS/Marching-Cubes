@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunHolder: {fileID: 8871491568582344683}
+  useEquippedDataFromFile: 0
+  shovelWeaponData: {fileID: 0}
   weaponsData:
   - {fileID: 11400000, guid: 6af12fb3be87cd44495b04799933e2fd, type: 2}
 --- !u!1001 &6328133549666782842
