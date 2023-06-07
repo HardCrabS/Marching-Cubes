@@ -9,12 +9,12 @@ public class QuestsDisplay : MonoBehaviour
 
     void Start()
     {
-        EventsDispatcher.Instance.onToggleMap += ShowQuestsInfo;
+        EventsDispatcher.Instance.onToggleMap += ShowQuestInfo;
     }
 
-    void ShowQuestsInfo()
+    void ShowQuestInfo()
     {
-        Quest[] quests = QuestSystem.Instance.GetQuests();
-        questText.text = $"{quests[0].amount} {quests[0].enemyPrefab.enemyType} enemies: {quests[0].progress}/{quests[0].amount}";
+        Quest quest = QuestSystem.Instance.ActiveQuest;
+        questText.text = $"{quest.amount} {quest.enemyPrefab.enemyType} clones: {quest.progress}/{quest.amount}";
     }
 }

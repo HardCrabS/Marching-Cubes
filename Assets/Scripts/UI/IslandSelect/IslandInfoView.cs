@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class IslandViewData
 {
     public IslandData islandData;
     public IslandButton islandButton;
     public bool isUnlocked;
-    public EnemyType enemyType;
-    public int enemyCount;
+    public Quest quest;
 }
 
 public class IslandInfoView : MonoBehaviour
@@ -44,8 +44,8 @@ public class IslandInfoView : MonoBehaviour
         titleText.text = islandViewData.islandData.title;
         descriptionText.text = islandViewData.islandData.description;
         rewardText.text = "reward: " + islandViewData.islandData.reward.ToString();
-        enemyCountText.text = islandViewData.enemyCount.ToString() + "x";
-        enemyIconImage.color = EnemyTypeToColor(islandViewData.enemyType);
+        enemyCountText.text = islandViewData.quest.amount.ToString() + "x";
+        enemyIconImage.color = EnemyTypeToColor(islandViewData.quest.enemyPrefab.enemyType);
         actionButton.GetComponentInChildren<TextMeshProUGUI>().text = "start";
         islandViewData.islandButton.UpdateButton(isHighlighted: true);
     }
@@ -72,7 +72,8 @@ public class IslandInfoView : MonoBehaviour
         }
         else
         {
-            // load island
+            QuestSystem.Instance.ActiveQuest = selectedIsland.quest;
+            SceneManager.LoadScene("IslandScene");
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelFinish : MonoBehaviour, IInteractable
 {
@@ -21,8 +22,8 @@ public class LevelFinish : MonoBehaviour, IInteractable
     {
         if (isReadyToFinish)
         {
-            // TODO: switch scenes code here...
-            finishText.text = "Success!\nLoading lobby...";
+            EventsDispatcher.Instance.onLevelFinished?.Invoke();
+            finishText.text = "Success!";
             finishText.color = Color.yellow;
         }
     }

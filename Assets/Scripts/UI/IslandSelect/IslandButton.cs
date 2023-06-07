@@ -10,6 +10,7 @@ public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     Image image;
     Vector3 initSize;
+    Quest quest = null;
 
     public void Initialize()
     {
@@ -41,6 +42,7 @@ public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         islandViewData.isUnlocked = IsUnlocked();
         islandViewData.islandData = islandData;
         islandViewData.islandButton = this;
+        islandViewData.quest = quest;
 
         return islandViewData;
     }
@@ -48,7 +50,13 @@ public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void UpdateButton(bool isHighlighted)
     {
         transform.localScale = isHighlighted ? initSize * 1.3f : initSize;
-        image.color = IsUnlocked() ? Color.white : Color.black;
+        bool isUnlocked = IsUnlocked();
+        image.color = isUnlocked ? Color.white : Color.black;
+        if (isUnlocked)
+        {
+            if (quest == null)
+                quest = QuestSystem.Instance.GenerateQuest();
+        }
     }
 
     bool IsUnlocked()

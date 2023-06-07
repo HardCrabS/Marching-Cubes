@@ -27,6 +27,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action onEscape;
     public System.Action<CollectibleData> onCollectibleFound;
     public System.Action<int> onMoneyUpdated;
+    public System.Action onLevelFinished;
 
     public static EventsDispatcher Instance;
 

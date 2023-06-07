@@ -24,7 +24,7 @@ public class QuestSystem : MonoBehaviour
     public Enemy defaultEnemyPrefab;
     public Enemy[] enemyPrefabs;
 
-    Quest[] quests;
+    public Quest ActiveQuest { get; set; }
 
     public static QuestSystem Instance;
 
@@ -32,60 +32,40 @@ public class QuestSystem : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        else
+            Destroy(this);
+        DontDestroyOnLoad(this);
     }
 
-    private void Start()
+    public void StartListening()
     {
         EventsDispatcher.Instance.onEnemyKilled += ProcessKilledEnemy;
     }
 
-    public Quest[] GetQuests()
-    {
-        if (quests == null)
-            GenerateQuests();
-        return quests;
-    }
-
     public bool IsAllQuestsCompleted()
     {
-        if (quests == null)
-            return false;
-        foreach (var quest in quests)
-        {
-            if (!quest.completed)
-                return false;
-        }
-        return true;
+        return ActiveQuest.completed;
     }
 
-    void GenerateQuests()
+    public Quest GenerateQuest()
     {
         int randIndex = Random.Range(0, enemyPrefabs.Length);
         int randAmount = Random.Range(amountRange.x, amountRange.y);
 
         Quest quest = new Quest(enemyPrefabs[randIndex], randAmount);
-
-        // TODO: add random amount of quests
-        Quest[] quests = new Quest[1];
-        quests[0] = quest;
-
-        this.quests = quests;
+        return quest;
     }
 
     void ProcessKilledEnemy(EnemyType enemyType)
     {
-        foreach (var quest in quests)
+        if (!ActiveQuest.completed && ActiveQuest.enemyPrefab.enemyType == enemyType)
         {
-            if (!quest.completed && quest.enemyPrefab.enemyType == enemyType)
+            ActiveQuest.progress++;
+            if (ActiveQuest.progress >= ActiveQuest.amount)
             {
-                quest.progress++;
-                if (quest.progress >= quest.amount)
-                {
-                    CompleteQuest(quest);
-                }
-                EventsDispatcher.Instance.onQuestProgress?.Invoke(quest);
-                break;
+                CompleteQuest(ActiveQuest);
             }
+            EventsDispatcher.Instance.onQuestProgress?.Invoke(ActiveQuest);
         }
     }
 

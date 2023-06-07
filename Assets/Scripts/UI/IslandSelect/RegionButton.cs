@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RegionData regionData;
 
@@ -23,7 +23,6 @@ public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         UpdateRegion();
 
-        GetComponentInChildren<LockButton>().SetTooltip(regionData.islandsRequiredToUnlock.ToString());
         GetComponentInParent<IslandSelectView>().onIslandUnlocked += (islandData) => {
             UpdateRegion(); 
         };
@@ -41,13 +40,6 @@ public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         image.color = GetColor(isHighlighted: false);
     }
 
-    // Called when the image is clicked
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        // Perform your click action here
-        Debug.Log("Image clicked!");
-    }
-
     void UpdateRegion()
     {
         image.color = GetColor(isHighlighted: false);
@@ -60,7 +52,9 @@ public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
         else
         {
-            islandsContainer.gameObject.SetActive(false);
+            if (islandsContainer)
+                islandsContainer.gameObject.SetActive(false);
+            GetComponentInChildren<LockButton>().SetTooltip(regionData.islandsRequiredToUnlock.ToString());
         }
     }
 

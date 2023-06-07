@@ -83,4 +83,15 @@ public class Player : Character
 
         EventsDispatcher.Instance.onPlayerDead?.Invoke();
     }
+
+    public void FreezeControls()
+    {
+        EventsDispatcher.Instance.onMouseControlChanged?.Invoke(MouseControl.UI);
+
+        Transform playerCamera = GetComponentInChildren<Camera>().transform;
+        playerCamera.GetComponent<FirstPersonLook>().enabled = false;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }

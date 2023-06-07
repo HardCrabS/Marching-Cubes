@@ -33,6 +33,7 @@ public class IslandManager : MonoBehaviour
             chunks = MeshGenerator.Instance.InitChunks();
             chunksHolder.localScale *= mapScaleFactor;
             EndlessTerrain.Instance.SetupChunks(chunks, mapScaleFactor);
+            QuestSystem.Instance.StartListening();
             StartCoroutine(DelayedSpawn(chunks));
         }
     }
@@ -87,17 +88,14 @@ public class IslandManager : MonoBehaviour
 
     void SpawnQuestEnemies(EnemyBase[] enemyBases)
     {
-        Quest[] quests = QuestSystem.Instance.GetQuests();
+        Quest quest = QuestSystem.Instance.ActiveQuest;
 
-        foreach (Quest quest in quests)
+        for (int i = 0; i < quest.amount; i++)
         {
-            for (int i = 0; i < quest.amount; i++)
-            {
-                int randIndex = Random.Range(0, enemyBases.Length);
-                EnemyBase enemyBase = enemyBases[randIndex];
-                enemyBase.SpawnEnemy(quest.enemyPrefab);
-                enemiesSpawned++;
-            }
+            int randIndex = Random.Range(0, enemyBases.Length);
+            EnemyBase enemyBase = enemyBases[randIndex];
+            enemyBase.SpawnEnemy(quest.enemyPrefab);
+            enemiesSpawned++;
         }
     }
 
