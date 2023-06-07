@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9db67499aaa0b264383406683d1a48d7, type: 3}
-  m_Name: Pistol
+  m_Name: Classic
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 957329656200001188, guid: ba0e11d598e63f743a12b13c771b14fc, type: 3}
   weaponPickupPrefab: {fileID: 9098345289706689532, guid: 7db84f2bc58c6744ab3d6e3980b9b682, type: 3}
@@ -24,5 +24,5 @@ MonoBehaviour:
   shotSFX: {fileID: 8300000, guid: 405b27846e2d296418618c85db56d4fb, type: 3}
   reloadSFX: {fileID: 8300000, guid: 8382e5f98340ff847b71c443172b56f6, type: 3}
   id: 1
-  title: classic
+  title: Classic
   price: 0

@@ -73,7 +73,7 @@ public class IslandInfoView : MonoBehaviour
         else
         {
             QuestSystem.Instance.ActiveQuest = selectedIsland.quest;
-            SceneManager.LoadScene("IslandScene");
+            SceneManager.LoadScene("test_movement");
         }
     }
 

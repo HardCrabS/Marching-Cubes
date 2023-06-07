@@ -7,6 +7,7 @@ public class PlayerPrefsController
     const string MONEY_KEY = "Money";
     const string WEAPON_KEY = "Weapon";
     const string EQUIPPED_KEY = "Equipped";
+    const string EQUIPPED_TITLE_KEY = "EquippedTitle";
     const string UNLOCKED_ISLANDS_COUNT_KEY = "UnlockedIslandsCount";
 
     public static void SetMoney(int value)
@@ -29,11 +30,26 @@ public class PlayerPrefsController
         return (PlayerPrefs.GetInt(WEAPON_KEY) & id) != 0;
     }
 
-    public static void EquipWeapon(int id)
+    public static void EquipWeapon(int id, string title)
+    {
+        Debug.Log("Equipping weapon: " + title);
+        int equippedBits = PlayerPrefs.GetInt(EQUIPPED_KEY);
+        bool alreadyEquipped = (equippedBits & id) != 0;
+        if (!alreadyEquipped)
+        {
+            EquipWeapon(title);
+            equippedBits |= id;
+            PlayerPrefs.SetInt(EQUIPPED_KEY, equippedBits);
+        }
+        else
+            Debug.Log("Already equipped!");
+    }
+    public static void UnEquipWeapon(int id, string title)
     {
         int equippedBits = PlayerPrefs.GetInt(EQUIPPED_KEY);
-        equippedBits |= id;
+        equippedBits &= ~id;
         PlayerPrefs.SetInt(EQUIPPED_KEY, equippedBits);
+        UnEquipWeapon(title);
     }
     public static bool IsWeaponEquipped(int id)
     {
@@ -42,6 +58,40 @@ public class PlayerPrefsController
     public static int GetEquippedMask()
     {
         return PlayerPrefs.GetInt(EQUIPPED_KEY);
+    }
+    static void EquipWeapon(string key)
+    {
+        string equippedStr = PlayerPrefs.GetString(EQUIPPED_TITLE_KEY, "");
+        if (!string.IsNullOrEmpty(equippedStr))
+            equippedStr += " ";
+        equippedStr += key;
+        Debug.Log("Saving weapon title: " + key + ". Result string: " + equippedStr);
+        PlayerPrefs.SetString(EQUIPPED_TITLE_KEY, equippedStr);
+    }
+    static void UnEquipWeapon(string key)
+    {
+        string equippedStr = PlayerPrefs.GetString(EQUIPPED_TITLE_KEY, "");
+        if (string.IsNullOrEmpty(equippedStr))
+            return;
+        string[] equipped = equippedStr.Split(' ');
+        string newEquippedStr = "";
+        foreach (string title in equipped)
+        {
+            if (!title.StartsWith(key))
+                newEquippedStr += title + " ";
+        }
+        newEquippedStr = newEquippedStr.Substring(0, newEquippedStr.Length - 1);
+        Debug.Log($"Unequipped weapon {key}. New string: {newEquippedStr}");
+        PlayerPrefs.SetString(EQUIPPED_TITLE_KEY, newEquippedStr);
+    }
+    public static string[] GetAllEquippedWeapons()
+    {
+        string equippedStr = PlayerPrefs.GetString(EQUIPPED_TITLE_KEY, "");
+        Debug.Log("Loaded equpped string: " + equippedStr);
+        if (string.IsNullOrEmpty(equippedStr))
+            return null;
+        string[] equpped = equippedStr.Split(' ');
+        return equpped;
     }
 
     public static void UnlockIsland(string key)

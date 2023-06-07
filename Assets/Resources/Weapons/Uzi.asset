@@ -24,5 +24,5 @@ MonoBehaviour:
   shotSFX: {fileID: 8300000, guid: 405b27846e2d296418618c85db56d4fb, type: 3}
   reloadSFX: {fileID: 8300000, guid: 8382e5f98340ff847b71c443172b56f6, type: 3}
   id: 4
-  title: uzi
+  title: Uzi
   price: 350

@@ -29,7 +29,7 @@ public class Wallet : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
-            AddMoney(100);
+            AddMoney(1000);
     }
 
     public int GetMoney() => money;

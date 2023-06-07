@@ -76,7 +76,7 @@ public class EventsDispatcher : MonoBehaviour
         {
             onToggleMap?.Invoke();
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             onEscape?.Invoke();
         }

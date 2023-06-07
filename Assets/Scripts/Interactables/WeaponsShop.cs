@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponsShop : MonoBehaviour, IInteractable
 {
-    public GameObject shopCanvas;
+    public WeaponShopView shopView;
     public GameObject uiCamera;
 
     public void Interact()
@@ -13,7 +13,8 @@ public class WeaponsShop : MonoBehaviour, IInteractable
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        shopCanvas.SetActive(true);
+        shopView.gameObject.SetActive(true);
+        shopView.Init();
         uiCamera.SetActive(true);
 
         EventsDispatcher.Instance.onEscape += Exit;
@@ -25,7 +26,8 @@ public class WeaponsShop : MonoBehaviour, IInteractable
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        shopCanvas.SetActive(false);
+        shopView.gameObject.SetActive(false);
+        shopView.Fini();
         uiCamera.SetActive(false);
 
         EventsDispatcher.Instance.onEscape -= Exit;

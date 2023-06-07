@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     public Transform gunHolder;
+    public bool useEquippedDataFromFile = true;
     public WeaponData shovelWeaponData;
     public WeaponData[] weaponsData;
 
@@ -17,13 +18,15 @@ public class GunController : MonoBehaviour
     Transform autoAimTarget;
     bool isPlayer = false;
 
-    const int EQUIPPED_WEAPONS_COUNT = 2;
+    const int EQUIPPED_WEAPONS_COUNT = GameConstants.EQUIPPED_WEAPONS_COUNT;
 
     public void Initialize(Transform autoAimTarget = null)
     {
         isPlayer = autoAimTarget == null;
         this.autoAimTarget = autoAimTarget;
         equippedWeaponsData = new WeaponData[EQUIPPED_WEAPONS_COUNT];
+        if (useEquippedDataFromFile)
+            weaponsData = LoadEquppedWeapons();
         for (int i = 0; i < EQUIPPED_WEAPONS_COUNT; i++)
         {
             if (i < weaponsData.Length && weaponsData[i])
@@ -38,6 +41,43 @@ public class GunController : MonoBehaviour
             Destroy(activeGun.GetComponentInChildren<BobAnimation>());
             Destroy(activeGun.GetComponentInChildren<WeaponSway>());
         }
+    }
+
+    public void UpdateWeapons()
+    {
+        if (activeGun)
+        {
+            Destroy(activeGun.gameObject);
+            activeGun = null;
+        }
+        Initialize();
+    }
+
+    WeaponData[] LoadEquppedWeapons()
+    {
+        WeaponData[] weaponDatas = new WeaponData[EQUIPPED_WEAPONS_COUNT];
+        string[] equipped = PlayerPrefsController.GetAllEquippedWeapons();
+        if (equipped == null)
+            return weaponDatas;
+        Debug.Log("Equipped titles: ");
+        for (int j = 0; j < equipped.Length; j++)
+        {
+            Debug.Log(equipped[j]);
+        }
+        int i = 0;
+        foreach (var title in equipped)
+        {
+            string path = "Weapons/" + title;
+            WeaponData weaponData = Resources.Load<WeaponData>(path);
+            if (weaponData == null)
+            {
+                Debug.LogWarning("Weapon " + title + " not found.");
+            }
+            weaponDatas[i] = weaponData;
+            i++;
+        }
+
+        return weaponDatas;
     }
 
     private void Update()

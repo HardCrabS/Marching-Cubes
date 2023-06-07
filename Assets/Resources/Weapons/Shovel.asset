@@ -23,3 +23,6 @@ MonoBehaviour:
   impactFX: {fileID: 0}
   shotSFX: {fileID: 0}
   reloadSFX: {fileID: 0}
+  id: 0
+  title: Shovel
+  price: 0

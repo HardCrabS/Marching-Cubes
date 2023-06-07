@@ -23,7 +23,9 @@ public class WeaponButton : MonoBehaviour
         buttonImage = GetComponent<Image>();
         initColor = buttonImage.color;
 
-        Debug.Log($"weapon [{weaponData.title}] unlocked: {PlayerPrefsController.IsWeaponUnlocked(weaponData.id)}");
+        bool isEquipped = PlayerPrefsController.IsWeaponEquipped(weaponData.id);
+        if (isEquipped)
+            GetComponentInParent<WeaponShopView>().onWeaponEquipped?.Invoke(this);
 
         UpdateStatus();
     }
@@ -36,8 +38,6 @@ public class WeaponButton : MonoBehaviour
                 return;
         }
         Equip();
-
-        UpdateStatus();
     }
 
     bool Buy()
@@ -53,16 +53,30 @@ public class WeaponButton : MonoBehaviour
 
     void Equip()
     {
-        PlayerPrefsController.EquipWeapon(weaponData.id);
+        bool isEquipped = PlayerPrefsController.IsWeaponEquipped(weaponData.id);
+        if (isEquipped)
+            return;
+        GetComponentInParent<WeaponShopView>().onWeaponEquipped?.Invoke(this);
+        PlayerPrefsController.EquipWeapon(weaponData.id, weaponData.title);
+        Player.Instance.GetComponent<GunController>().UpdateWeapons();
+
+        UpdateStatus();
+    }
+
+    public void UnEquip()
+    {
+        PlayerPrefsController.UnEquipWeapon(weaponData.id, weaponData.title);
+        UpdateStatus();
     }
 
     void UpdateStatus()
     {
-        if (PlayerPrefsController.IsWeaponUnlocked(weaponData.id) || weaponData.price == 0)
-        {
+        bool isUnlocked = PlayerPrefsController.IsWeaponUnlocked(weaponData.id);
+        
+        if (isUnlocked || weaponData.price == 0)
             weaponText.SetPriceText("");
-        }
 
-        buttonImage.color = PlayerPrefsController.IsWeaponEquipped(weaponData.id) ? equippedColor : initColor;
+        bool isEquipped = PlayerPrefsController.IsWeaponEquipped(weaponData.id);
+        buttonImage.color = isEquipped ? equippedColor : initColor;
     }
 }

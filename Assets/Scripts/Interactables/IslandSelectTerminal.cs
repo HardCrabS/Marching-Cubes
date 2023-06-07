@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IslandSelectTerminal : MonoBehaviour, IInteractable
 {
-    public GameObject islandsCanvas;
+    public IslandSelectView islandsView;
     public GameObject uiCamera;
 
     public void Interact()
@@ -13,7 +13,7 @@ public class IslandSelectTerminal : MonoBehaviour, IInteractable
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        islandsCanvas.SetActive(true);
+        islandsView.gameObject.SetActive(true);
         uiCamera.SetActive(true);
 
         EventsDispatcher.Instance.onEscape += Exit;
@@ -25,7 +25,7 @@ public class IslandSelectTerminal : MonoBehaviour, IInteractable
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        islandsCanvas.SetActive(false);
+        islandsView.gameObject.SetActive(false);
         uiCamera.SetActive(false);
 
         EventsDispatcher.Instance.onEscape -= Exit;
