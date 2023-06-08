@@ -7,6 +7,7 @@ public class Minimap : MonoBehaviour
 {
     public Camera minimapCamera;
     public Vector2Int textureSize = new Vector2Int(100, 100);
+    public GameObject blur;
 
     public static Minimap Instance;
 
@@ -55,7 +56,8 @@ public class Minimap : MonoBehaviour
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(!child.gameObject.activeSelf);
-        } 
+        }
+        blur.SetActive(!blur.activeSelf);
     }
 
     Sprite GenerateMinimap()

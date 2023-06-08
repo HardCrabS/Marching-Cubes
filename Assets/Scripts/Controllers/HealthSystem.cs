@@ -26,7 +26,12 @@ public class HealthSystem : MonoBehaviour
         if (pickup == null)
             return;
 
-        TakeDamage(-pickup.healthToAdd);
+        curHealth = Mathf.Clamp(curHealth + pickup.healthToAdd, 0, health);
+        var character = GetComponent<Character>();
+        if (character != null)
+        {
+            character.TakeDamage();
+        }
     }
 
     public HealthData GetHealthData()

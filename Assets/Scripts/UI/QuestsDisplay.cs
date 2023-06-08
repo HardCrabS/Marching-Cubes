@@ -14,6 +14,11 @@ public class QuestsDisplay : MonoBehaviour
 
     void ShowQuestInfo()
     {
+        if (!QuestSystem.Instance)
+        {
+            questText.text = "Quest system isn't found";
+            return;
+        }
         Quest quest = QuestSystem.Instance.ActiveQuest;
         questText.text = $"{quest.amount} {quest.enemyPrefab.enemyType} clones: {quest.progress}/{quest.amount}";
     }
