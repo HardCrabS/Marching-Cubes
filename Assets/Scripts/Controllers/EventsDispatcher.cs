@@ -19,7 +19,7 @@ public class EventsDispatcher : MonoBehaviour
     public System.Action onToggleMap;
     public System.Action onMapInitialized;
     public System.Action onPlayerDead;
-    public System.Action<float, float> onPlayerHealthUpdated;
+    public System.Action<HealthData> onPlayerHealthUpdated;
     public System.Action<EnemyNotification> onNotifyEnemies;
     public System.Action<EnemyType> onEnemyKilled;
     public System.Action<Quest> onQuestProgress;

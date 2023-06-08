@@ -613,6 +613,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &981678194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 911985345, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+  m_PrefabInstance: {fileID: 1053417215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1053417215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -620,11 +631,39 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 827962511, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 827962511, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 903654316, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: armorSlider
+      value: 
+      objectReference: {fileID: 981678194}
+    - target: {fileID: 903654316, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: armorFillImage
+      value: 
+      objectReference: {fileID: 1150362079}
+    - target: {fileID: 911985343, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 911985345, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1770186161, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1770186161, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819508033, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -889,6 +928,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 20
+--- !u!114 &1150362079 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 827962512, guid: 7a1703bc5ce6294419d5dcb835d3d723, type: 3}
+  m_PrefabInstance: {fileID: 1053417215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1456124489
 GameObject:
   m_ObjectHideFlags: 0

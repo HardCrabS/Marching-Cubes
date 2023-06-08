@@ -9,6 +9,7 @@ public class PlayerPrefsController
     const string EQUIPPED_KEY = "Equipped";
     const string EQUIPPED_TITLE_KEY = "EquippedTitle";
     const string UNLOCKED_ISLANDS_COUNT_KEY = "UnlockedIslandsCount";
+    const string EQUIPPED_ARMOR_KEY = "EquippedArmor";
 
     public static void SetMoney(int value)
     {
@@ -106,5 +107,16 @@ public class PlayerPrefsController
     public static int GetUnlockedIslandsCount()
     {
         return PlayerPrefs.GetInt(UNLOCKED_ISLANDS_COUNT_KEY, 1);
+    }
+
+    public static void EquipArmor(string title)
+    {
+        PlayerPrefs.SetString(EQUIPPED_ARMOR_KEY, title);
+    }
+    public static string GetEquippedArmor()
+    {
+        var title = PlayerPrefs.GetString(EQUIPPED_ARMOR_KEY, "");
+        Debug.Log("Loaded equipped armor: " + title);
+        return title;
     }
 }

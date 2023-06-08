@@ -41,8 +41,8 @@ public class Player : Character
         gunController.Initialize();
 
         healthSystem = GetComponent<HealthSystem>();
-        var hpInfo = healthSystem.GetHealthInfo();
-        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hpInfo.Item1, hpInfo.Item2);
+        var hd = healthSystem.GetHealthData();
+        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hd);
     }
 
     void HandleSwitchGun(Gun gun)
@@ -56,8 +56,8 @@ public class Player : Character
     {
         base.TakeDamage();
 
-        var hpInfo = healthSystem.GetHealthInfo();
-        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hpInfo.Item1, hpInfo.Item2);
+        var hd = healthSystem.GetHealthData();
+        EventsDispatcher.Instance.onPlayerHealthUpdated?.Invoke(hd);
     }
 
     public override void Kill()

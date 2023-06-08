@@ -8,11 +8,16 @@ public class WeaponButton : MonoBehaviour
     public WeaponData weaponData;
     public Color equippedColor;
 
-    WeaponText weaponText;
-    Image buttonImage;
-    Color initColor;
+    protected WeaponText weaponText;
+    protected Image buttonImage;
+    protected Color initColor;
 
     private void Start()
+    {
+        Init();
+    }
+
+    protected virtual void Init()
     {
         weaponText = GetComponentInChildren<WeaponText>();
         weaponText.SetText(weaponData.title, weaponData.price.ToString());
@@ -30,7 +35,7 @@ public class WeaponButton : MonoBehaviour
         UpdateStatus();
     }
 
-    void OnButtonClicked()
+    protected virtual void OnButtonClicked()
     {
         if (!PlayerPrefsController.IsWeaponUnlocked(weaponData.id) && weaponData.price != 0)
         {
@@ -69,7 +74,7 @@ public class WeaponButton : MonoBehaviour
         UpdateStatus();
     }
 
-    void UpdateStatus()
+    protected virtual void UpdateStatus()
     {
         bool isUnlocked = PlayerPrefsController.IsWeaponUnlocked(weaponData.id);
         

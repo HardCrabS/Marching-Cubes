@@ -8,12 +8,16 @@ public class HealthSystem : MonoBehaviour
     public float health = 100f;
 
     float curHealth;
+    int curArmor = 0;
 
     private void Start()
     {
         curHealth = health;
 
         EventsDispatcher.Instance.onInteract += PickupHealth;
+
+        if (GetComponent<Player>())
+            LoadArmor();
     }
 
     public void PickupHealth(GameObject interactableGO)
@@ -25,14 +29,22 @@ public class HealthSystem : MonoBehaviour
         TakeDamage(-pickup.healthToAdd);
     }
 
-    public Tuple<float, float> GetHealthInfo()
+    public HealthData GetHealthData()
     {
-        return new Tuple<float, float>(curHealth, health);
+        HealthData hd = new HealthData();
+        hd.healthInfo = new Tuple<float, float>(curHealth, health);
+        hd.armorInfo = new Tuple<int, int>(curArmor, 100);
+        return hd;
     }
 
     public void TakeDamage(float damage)
     {
-        curHealth = Mathf.Clamp(curHealth - damage, 0, health);
+        curArmor = (int)Mathf.Clamp(curArmor - damage, 0, curArmor);
+        float damageAfterArmor = Mathf.Clamp(damage - curArmor, 0, damage);
+        if (damageAfterArmor > 0)
+        {
+            curHealth = Mathf.Clamp(curHealth - damageAfterArmor, 0, health);
+        }
         var character = GetComponent<Character>();
         if (character != null)
         {
@@ -54,4 +66,22 @@ public class HealthSystem : MonoBehaviour
             character.Kill();
         }
     }
+
+    void LoadArmor()
+    {
+        string armorTitle = PlayerPrefsController.GetEquippedArmor();
+        if (string.IsNullOrEmpty(armorTitle))
+            return;
+        curArmor = Resources.Load<ArmorData>("Armor/" + armorTitle).health;
+
+        PlayerPrefsController.EquipArmor("");
+    }
+}
+
+
+public class HealthData
+{
+    // (curr, max)
+    public Tuple<float, float> healthInfo;
+    public Tuple<int, int> armorInfo;
 }
