@@ -20,6 +20,8 @@ public class MeshGenerator : MonoBehaviour
     public bool showGizmos = true;
     public Color colorGizmos;
 
+    public bool autoUpdate = true;
+
     public static float chunkSize = 0;
 
     private List<Vector3> vertices;

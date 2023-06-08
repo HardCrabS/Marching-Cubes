@@ -16,6 +16,7 @@ public class EnemyBase : MonoBehaviour
             return;
 
         Instantiate(enemyPrefab.gameObject, hit.point, enemyPrefab.transform.rotation, transform);
+        StatsController.Instance.IncrementTotalEnemies();
     }
 
     private void OnDrawGizmosSelected()

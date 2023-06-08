@@ -6,6 +6,8 @@ public class PickupTreasureMap : MonoBehaviour, IInteractable
 {
     void Start()
     {
+        StatsController.Instance.IncrementTotalTreasures();
+
         Debug.Log("Treasure map spawned!");
     }
 
