@@ -10,7 +10,6 @@ public class IslandViewData
     public IslandData islandData;
     public IslandButton islandButton;
     public bool isUnlocked;
-    public Quest quest;
 }
 
 public class IslandInfoView : MonoBehaviour
@@ -41,13 +40,13 @@ public class IslandInfoView : MonoBehaviour
 
     void SetIslandView(IslandViewData islandViewData)
     {
+        islandViewData.islandButton.UpdateButton(isHighlighted: true);
         titleText.text = islandViewData.islandData.title;
         descriptionText.text = islandViewData.islandData.description;
         rewardText.text = "reward: " + islandViewData.islandData.reward.ToString();
-        enemyCountText.text = islandViewData.quest.amount.ToString() + "x";
-        enemyIconImage.color = EnemyTypeToColor(islandViewData.quest.enemyPrefab.enemyType);
+        enemyCountText.text = islandViewData.islandButton.Quest.amount.ToString() + "x";
+        enemyIconImage.color = EnemyTypeToColor(islandViewData.islandButton.Quest.enemyPrefab.enemyType);
         actionButton.GetComponentInChildren<TextMeshProUGUI>().text = "start";
-        islandViewData.islandButton.UpdateButton(isHighlighted: true);
     }
 
     void SetLockedView(IslandViewData islandViewData)
@@ -72,7 +71,7 @@ public class IslandInfoView : MonoBehaviour
         }
         else
         {
-            QuestSystem.Instance.ActiveQuest = selectedIsland.quest;
+            QuestSystem.Instance.ActiveQuest = selectedIsland.islandButton.Quest;
             SceneManager.LoadScene(GameConstants.MAIN_GAME_SCENE_NAME);
         }
     }

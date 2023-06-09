@@ -7167,8 +7167,8 @@ MonoBehaviour:
   regionData: {fileID: 11400000, guid: a26836a4005705d4db9a363a012862af, type: 2}
   lockedColor: {r: 0.58431375, g: 0.58431375, b: 0.58431375, a: 0.5882353}
   lockedHighlightedColor: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 0.5882353}
-  unlockedColor: {r: 0.3764706, g: 0.56078434, b: 0.8980392, a: 0.5882353}
-  unlockedHighlightedColor: {r: 0.4745098, g: 0.6627451, b: 1, a: 0.5882353}
+  unlockedColor: {r: 0.37647057, g: 0.7489684, b: 0.8980392, a: 0.5882353}
+  unlockedHighlightedColor: {r: 0.504717, g: 0.85849065, b: 1, a: 0.5882353}
 --- !u!1 &734503568
 GameObject:
   m_ObjectHideFlags: 0

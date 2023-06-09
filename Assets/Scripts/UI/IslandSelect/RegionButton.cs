@@ -46,7 +46,9 @@ public class RegionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         bool isUnlocked = IsUnlocked();
         if (isUnlocked)
         {
-            GetComponentInChildren<LockButton>().gameObject.SetActive(false);
+            var lockBtn = GetComponentInChildren<LockButton>();
+            if (lockBtn)
+                lockBtn.gameObject.SetActive(false);
             islandsContainer.gameObject.SetActive(true);
             islandsContainer.InitIslands();
         }

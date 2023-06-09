@@ -7,10 +7,10 @@ using UnityEngine.EventSystems;
 public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public IslandData islandData;
+    public Quest Quest { get; private set; }
 
     Image image;
     Vector3 initSize;
-    Quest quest = null;
 
     public void Initialize()
     {
@@ -42,7 +42,6 @@ public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         islandViewData.isUnlocked = IsUnlocked();
         islandViewData.islandData = islandData;
         islandViewData.islandButton = this;
-        islandViewData.quest = quest;
 
         return islandViewData;
     }
@@ -54,8 +53,8 @@ public class IslandButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         image.color = isUnlocked ? Color.white : Color.black;
         if (isUnlocked)
         {
-            if (quest == null)
-                quest = QuestSystem.Instance.GenerateQuest();
+            if (Quest == null)
+                Quest = QuestSystem.Instance.GenerateQuest();
         }
     }
 
